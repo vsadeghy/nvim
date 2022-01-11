@@ -27,6 +27,7 @@ local hopmappings = {
   p = { "<cmd>HopPattern<CR>", "pattern" },
   j = { "<cmd>HopChar1AC<CR>", "Find down" },
   k = { "<cmd>HopChar1BC<CR>", "Find up" },
+  [";"] = { ";", "next" },
 }
 
 local nmappings = {
