@@ -38,7 +38,7 @@ require("nvim-treesitter.configs").setup {
   -- ensure_installed = O.treesitter.ensure_installed, -- one of "all", "maintained" (parsers with maintainers), or a list of languages
   ensure_installed = install,
   sync_install = true,
-  -- ignore_install = O.treesitter.ignore_install,
+  ignore_install = {"fusion", "jsonc"},
   playground = { enabled = true, updatetime = 25 },
   highlight = {
     -- enable = O.treesitter.highlight.enabled -- true will disable the whole extension
