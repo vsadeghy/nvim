@@ -28,7 +28,6 @@ require "globals"
 require "settings"
 require "utils"
 
--- require('plugins')
 require "packerInit"
 require "packer_compiled"
 require "keymappings"
