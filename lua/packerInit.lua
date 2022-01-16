@@ -36,5 +36,4 @@ packer.init {
   },
 }
 
-print "Packer is already installed"
 require "plugins"
