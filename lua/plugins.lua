@@ -38,6 +38,7 @@ return require("packer").startup(function(use)
     cmd = "Telescope",
     requires = {
       "nvim-lua/plenary.nvim",
+      "kyazdani42/nvim-web-devicons",
       {"nvim-telescope/telescope-fzf-native.nvim", run = "make"--[[ , cmd = "Telescope" ]]},
       {"nvim-telescope/telescope-media-files.nvim"--[[ , cmd = "Telescope" ]]},
       {"nvim-telescope/telescope-project.nvim"--[[ , cmd = "Telescope" ]]},
@@ -72,6 +73,10 @@ return require("packer").startup(function(use)
   use {"folke/todo-comments.nvim",
     requires = "nvim-lua/plenary.nvim",
     config = function() require("todo-comments").setup{} end,
+  }
+
+  use {"yamatsum/nvim-nonicons",
+    requires = "kyazdani42/nvim-web-devicons",
   }
 
   -- search and replace in multiple files
