@@ -24,6 +24,10 @@ function cmap(key, command, options)
   map("c", key, command, { silent = false })
 end
 
+function tmap(key, command, options)
+  map("t", key, command, { silent = false })
+end
+
 function bnmap(bufnr, key, command, options)
   map("n", key, command, options, bufnr)
 end
