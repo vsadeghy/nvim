@@ -14,5 +14,5 @@ null_ls.setup {
       extra_args = { "--config-path", vim.fn.expand "~/.config/stylua.toml" },
     },
   },
-  on_attach = require("lsp.utils").on_attach,
+  on_attach = require("lsp.onattach").on_attach,
 }

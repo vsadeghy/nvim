@@ -25,7 +25,7 @@ require("lspconfig").tsserver.setup {
       -- formatting
       enable_formatting = true,
       formatter = "prettierd",
-      formatter_config_fallback = nil,
+      formatter_config_fallback = ".prettierrc",
 
       -- parentheses completion
       complete_parens = true,
@@ -42,6 +42,6 @@ require("lspconfig").tsserver.setup {
       ["<leader>lI"] = { "<cmd>TSLspImportAll<CR>", "import all" },
       ["gRf"] = { "rename file" },
     }, { buffer = buffer })
-    require("lsp.utils").on_attach(client, buffer)
+    require("lsp.onattach").on_attach(client, buffer)
   end,
 }
