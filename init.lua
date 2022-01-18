@@ -30,4 +30,3 @@ require "utils"
 
 require "packerInit"
 require "packer_compiled"
-require "keymappings"
