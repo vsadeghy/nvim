@@ -49,4 +49,7 @@ require("nvim-treesitter.configs").setup {
   -- TODO seems to be broken
   indent = { enable = true },
   autotag = { enable = true },
+  context_commentstring = {
+    enable = true,
+  },
 }

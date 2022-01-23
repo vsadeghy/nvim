@@ -141,6 +141,10 @@ use { "folke/zen-mode.nvim",
     after = "nvim-treesitter",
     cmd = "TSPlaygroundToggle",
   }
+  use {"JoosepAlviste/nvim-ts-context-commentstring",
+    requires = "nvim-treesitter/nvim-treesitter",
+  }
+
 
   -- LSPs
   use {"neovim/nvim-lspconfig",
