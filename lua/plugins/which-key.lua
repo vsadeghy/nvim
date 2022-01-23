@@ -3,7 +3,7 @@ wk.setup {
   hidden = { "<silent>", "<cmd>", "<Cmd>", "<CR>", "call", "lua", "^:", "^ " }, -- hide mapping boilerplate
   key_labels = {
     ["<space>"] = "SPC",
-    ["<cr>"] = "RET",
+    ["<CR>"] = "RET",
     ["<tab>"] = "TAB",
   },
   operators = { gc = "line comment", gb = "block comment" },
@@ -46,17 +46,18 @@ wk.register {
     },
     g = {
       name = "+Git",
-      j = { "<cmd>Gitsigns next_hunk<cr>", "Next Hunk" },
-      k = { "<cmd>Gitsigns prev_hunk<cr>", "Prev Hunk" },
-      p = { "<cmd>Gitsigns preview_hunk<cr>", "Preview Hunk" },
-      r = { "<cmd>Gitsigns reset_hunk<cr>", "Reset Hunk" },
-      R = { "<cmd>Gitsigns reset_buffer<cr>", "Reset Buffer" },
-      s = { "<cmd>Gitsigns stage_hunk<cr>", "Stage Hunk" },
-      u = { "<cmd>Gitsigns undo_stage_hunk<cr>", "Undo Stage Hunk" },
-      S = { "<cmd>Telescope git_status<cr>", "Status" },
-      b = { "<cmd>Telescope git_branches<cr>", "Checkout branch" },
-      c = { "<cmd>Telescope git_commits<cr>", "Checkout commit" },
-      C = { "<cmd>Telescope git_bcommits<cr>", "Checkout commit(for current file)" },
+      j = { "<cmd>Gitsigns next_hunk<CR>", "Next Hunk" },
+      k = { "<cmd>Gitsigns prev_hunk<CR>", "Prev Hunk" },
+      l = { "<cmd>lua _LAZTGIT_TOGGLE()<CR>"},
+      p = { "<cmd>Gitsigns preview_hunk<CR>", "Preview Hunk" },
+      r = { "<cmd>Gitsigns reset_hunk<CR>", "Reset Hunk" },
+      R = { "<cmd>Gitsigns reset_buffer<CR>", "Reset Buffer" },
+      s = { "<cmd>Gitsigns stage_hunk<CR>", "Stage Hunk" },
+      u = { "<cmd>Gitsigns undo_stage_hunk<CR>", "Undo Stage Hunk" },
+      S = { "<cmd>Telescope git_status<CR>", "Status" },
+      b = { "<cmd>Telescope git_branches<CR>", "Checkout branch" },
+      c = { "<cmd>Telescope git_commits<CR>", "Checkout commit" },
+      C = { "<cmd>Telescope git_bcommits<CR>", "Checkout commit(for current file)" },
     },
     n = { "<cmd>nohl<CR>", "No Highlights" },
     p = {
@@ -82,7 +83,7 @@ wk.register {
       ["<"] = { "v:count1 * g:reSize . '<C-w><'", "resize window", silent = false, expr = true },
       [">"] = { "v:count1 * g:reSize . '<C-w>>'", "resize window", silent = false, expr = true },
     },
-    [";"] = { "<cmd>Dashboard<cr>", "Dashboard" },
+    [";"] = { "<cmd>Dashboard<CR>", "Dashboard" },
     ["/"] = { "gcc", "Comment", noremap = false },
     ["<space>"] = hopmappings,
   }, -- end leader
@@ -101,8 +102,8 @@ wk.register {
   ["<A-h>"] = { "<C-w><C-h>", "window left" },
   ["<A-l>"] = { "<C-w><C-l>", "window right" },
 
-  ["<tab>"] = { "<cmd>bn<cr>", "next buffer" },
-  ["<S-tab>"] = { "<cmd>bp<cr>", "previous buffer" },
+  ["<tab>"] = { "<cmd>bn<CR>", "next buffer" },
+  ["<S-tab>"] = { "<cmd>bp<CR>", "previous buffer" },
 
   ["<C-p>"] = { "<cmd>Telescope find_files<CR>", "find files" },
 
@@ -116,10 +117,11 @@ wk.register({
   ["<leader>"] = {
     g = {
       name = "+Git",
-      s = { "<cmd>Gitsigns stage_hunk<cr>", "Stage Hunk" },
-      r = { "<cmd>Gitsigns reset_hunk<cr>", "Reset Hunk" },
+      s = { "<cmd>Gitsigns stage_hunk<CR>", "Stage Hunk" },
+      u = { "<cmd>Gitsigns undo_stage_hunk<CR>", "Undo Stage Hunk" },
+      r = { "<cmd>Gitsigns reset_hunk<CR>", "Reset Hunk" },
     },
-    ["/"] = { "gc", "comment" },
+    ["/"] = { "gc", "comment", silent = false, noremap = true },
   },
   [";"] = hopmappings,
 }, { mode = "v" })
@@ -140,11 +142,12 @@ wk.register({
 --   ["<A-l>"] = { "<C-\\><C-n><C-w><C-l>", "window right" },
 --   ["<esc>"] = { "<C-\\><C-n>", "escape terminal" },
 -- }, { mode = "t", silent = false })
-tmap("<A-k>", "<C-\\><C-n><C-w><C-k>")
-tmap("<A-j>", "<C-\\><C-n><C-w><C-j>")
-tmap("<A-h>", "<C-\\><C-n><C-w><C-h>")
-tmap("<A-l>", "<C-\\><C-n><C-w><C-l>")
-tmap("<A-[>", "<C-\\><C-n>")
+tmap("<A-k>", [[<C-\><C-n><C-w><C-k>]])
+tmap("<A-j>", [[<C-\><C-n><C-w><C-j>]])
+tmap("<A-h>", [[<C-\><C-n><C-w><C-h>]])
+tmap("<A-l>", [[<C-\><C-n><C-w><C-l>]])
+tmap("<esc>", [[<C-\><C-n>]])
+tmap("<jk>", [[<C-\><C-n>]])
 
 cmap("<A-k>", "<up>")
 cmap("<A-j>", "<down>")
