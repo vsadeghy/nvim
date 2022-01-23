@@ -5,4 +5,5 @@ require("nvim-autopairs").setup {
     javascript = { "template_string" },
     java = false,
   },
+  fast_wrap = {},
 }
