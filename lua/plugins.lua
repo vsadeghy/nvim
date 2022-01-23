@@ -48,6 +48,10 @@ return require("packer").startup(function(use)
     config = function() require("plugins.telescope") end,
   }
 
+  use {"akinsho/toggleterm.nvim",
+    config = function() require("plugins.toggleterm") end,
+  }
+
   -- surround text
   use { "blackCauldron7/surround.nvim",
     config = function()
