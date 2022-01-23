@@ -118,7 +118,7 @@ wk.register({
   ["<leader>"] = {
     g = {
       name = "+Git",
-      s = { "<cmd>Gitsigns stage_hunk<CR>", "Stage Hunk" },
+      s = { ":Gitsigns stage_hunk<CR>", "Stage Hunk" },
       u = { "<cmd>Gitsigns undo_stage_hunk<CR>", "Undo Stage Hunk" },
       r = { "<cmd>Gitsigns reset_hunk<CR>", "Reset Hunk" },
     },
