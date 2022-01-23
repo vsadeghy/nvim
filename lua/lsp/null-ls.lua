@@ -7,9 +7,10 @@ null_ls.setup {
     actions.gitsigns,
     actions.eslint_d,
     diagnostics.eslint_d,
-    -- formatting.prettier,
-    -- formatting.prettier_d_slim,
-    formatting.prettierd,
+    formatting.prettierd.with({
+      -- extra_filetypes = {"svelte"}
+    }),
+
     formatting.stylua.with {
       extra_args = { "--config-path", vim.fn.expand "~/.config/stylua.toml" },
     },
