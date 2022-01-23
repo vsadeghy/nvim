@@ -52,4 +52,15 @@ require("nvim-treesitter.configs").setup {
   context_commentstring = {
     enable = true,
   },
+  rainbow = {
+    enable = true,
+    extended_mode = true,
+    max_file_lines = nil,
+    colors = {
+      "#FF00FF",
+      "#FFFF00",
+      "#00FFFF",
+      "#00FF00",
+    },
+  },
 }

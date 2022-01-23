@@ -125,7 +125,6 @@ use { "folke/zen-mode.nvim",
   config = function() require("zen-mode").setup{} end
 }
   use {"windwp/nvim-autopairs",
-    after = {"nvim-treesitter", "nvim-cmp"},
     config = function() require("plugins.autopairs") end
   }
 
@@ -140,6 +139,10 @@ use { "folke/zen-mode.nvim",
   use {"nvim-treesitter/playground",
     after = "nvim-treesitter",
     cmd = "TSPlaygroundToggle",
+  }
+  -- rainbow delimiters
+  use {"p00f/nvim-ts-rainbow",
+    requires = "nvim-treesitter/nvim-treesitter",
   }
   use {"JoosepAlviste/nvim-ts-context-commentstring",
     requires = "nvim-treesitter/nvim-treesitter",
@@ -203,5 +206,5 @@ use { "folke/zen-mode.nvim",
     -- event = {"BufRead", "BufNewFile"},
     cmd = "UndotreeToggle"
   }
-
 end)
+-- stylua: ignore end
