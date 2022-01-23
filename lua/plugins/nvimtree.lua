@@ -70,7 +70,7 @@ require("nvim-tree").setup {
   },
   filters = {
     dotfiles = false,
-    custom = {},
+    custom = { "node_modules", ".git", "dist", "yarn.lock", "package-lock.json"},
   },
   git = {
     enable = true,
