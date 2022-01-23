@@ -8,4 +8,4 @@ vim.g.moonlight_borders = PO.borders
 vim.g.moonlight_disable_background = false
 
 -- Load the colorscheme
-require("moonlight").set()
+require("moonlight")
