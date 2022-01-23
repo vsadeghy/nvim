@@ -30,3 +30,5 @@ require "utils"
 
 require "packerInit"
 require "packer_compiled"
+
+vim.cmd("colorscheme " .. PO.colorscheme)

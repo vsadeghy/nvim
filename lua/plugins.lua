@@ -20,12 +20,14 @@ return require("packer").startup(function(use)
   -- neovim lua
   use {"nvim-lua/plenary.nvim", "nvim-lua/popup.nvim"}
 
-  -- moonlight colorscheme
+  -- colorschemes
   use {"shaunsingh/moonlight.nvim",
     config = function() require("plugins.moonlight") end,
   }
-
   use {"folke/tokyonight.nvim"}
+  use {"catppuccin/nvim", as = "catppuccin",
+    config = function() require("catppuccin") end,
+  }
 
   -- file explorer
   use {"kyazdani42/nvim-tree.lua",

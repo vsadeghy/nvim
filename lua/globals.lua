@@ -39,7 +39,7 @@ O = {
 }
 
 PO = {
-  colorscheme = "slate",
+  colorscheme = "catppuccin",
   borders = true,
   enabledLanguages = { "typescript", "lua" },
 }
