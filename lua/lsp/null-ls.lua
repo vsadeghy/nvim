@@ -5,6 +5,7 @@ local formatting = null_ls.builtins.formatting
 null_ls.setup {
   sources = {
     actions.gitsigns,
+
     actions.eslint_d,
     diagnostics.eslint_d,
     formatting.prettierd.with({
@@ -17,6 +18,11 @@ null_ls.setup {
 
     formatting.shfmt,
 
+    diagnostics.flake8,
+    -- diagnostics.pylint,
+    formatting.black,
+    -- formatting.autopep8,
+    -- formatting.yapf,
   },
   on_attach = require("lsp.onattach").on_attach,
 }
