@@ -121,6 +121,9 @@ return require("packer").startup(function(use)
     config = function() require("neogit").setup{} end
   }
 
+use { "folke/zen-mode.nvim",
+  config = function() require("zen-mode").setup{} end
+}
   use {"windwp/nvim-autopairs",
     after = {"nvim-treesitter", "nvim-cmp"},
     config = function() require("plugins.autopairs") end
