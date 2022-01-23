@@ -129,6 +129,8 @@ use { "folke/zen-mode.nvim",
     config = function() require("plugins.autopairs") end
   }
 
+  use {"windwp/nvim-ts-autotag" }
+
   -- syntax highlighting
   use {"nvim-treesitter/nvim-treesitter",
     event = {"BufRead", "BufNewFile"},
