@@ -1,4 +1,4 @@
-local install = {
+local ensure = {
   "bash",
   "c",
   "cpp",
@@ -35,18 +35,14 @@ local install = {
   "yaml",
 }
 require("nvim-treesitter.configs").setup {
-  -- ensure_installed = O.treesitter.ensure_installed, -- one of "all", "maintained" (parsers with maintainers), or a list of languages
-  ensure_installed = install,
+  ensure_installed = ensure,
   sync_install = true,
-  ignore_install = {"fusion", "jsonc"},
+  -- ignore_install = {},
   playground = { enabled = true, updatetime = 25 },
   highlight = {
-    -- enable = O.treesitter.highlight.enabled -- true will disable the whole extension
     -- enable = {"c", "cpp", "c_sharp", "fish", "go", "php", "pug", "lua"},
     enable = true,
   },
-  -- indent = {enable = true, disable = {"python", "html", "javascript"}},
-  -- TODO seems to be broken
   indent = { enable = true },
   autotag = { enable = true },
   context_commentstring = {

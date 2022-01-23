@@ -25,9 +25,17 @@ function cmap(key, command, options)
 end
 
 function tmap(key, command, options)
-  map("t", key, command, { silent = false })
+  map("t", key, command)
+end
+
+local function bmap(mode, key, command, options, bufnr)
+  map(mode, key, command, options, bufnr)
 end
 
 function bnmap(bufnr, key, command, options)
-  map("n", key, command, options, bufnr)
+  bmap("n", key, command, options, bufnr)
+end
+
+function tnmap(bufnr, key, command, options)
+  bmap("t", key, command, options, bufnr)
 end
