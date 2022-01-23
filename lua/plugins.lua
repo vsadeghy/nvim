@@ -116,6 +116,11 @@ return require("packer").startup(function(use)
     config = function() require("gitsigns").setup() end
   }
 
+  use { "TimUntersberger/neogit",
+    requires = "nvim-lua/plenary.nvim",
+    config = function() require("neogit").setup{} end
+  }
+
   use {"windwp/nvim-autopairs",
     after = {"nvim-treesitter", "nvim-cmp"},
     config = function() require("plugins.autopairs") end

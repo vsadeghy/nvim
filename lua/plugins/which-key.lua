@@ -49,6 +49,7 @@ wk.register {
       j = { "<cmd>Gitsigns next_hunk<CR>", "Next Hunk" },
       k = { "<cmd>Gitsigns prev_hunk<CR>", "Prev Hunk" },
       l = { "<cmd>lua _LAZTGIT_TOGGLE()<CR>", "Lazygit"},
+      n = { "<cmd>Neogit<CR>", "Neogit"},
       p = { "<cmd>Gitsigns preview_hunk<CR>", "Preview Hunk" },
       r = { "<cmd>Gitsigns reset_hunk<CR>", "Reset Hunk" },
       R = { "<cmd>Gitsigns reset_buffer<CR>", "Reset Buffer" },
