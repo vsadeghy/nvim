@@ -14,6 +14,9 @@ null_ls.setup {
     formatting.stylua.with {
       extra_args = { "--config-path", vim.fn.expand "~/.config/stylua.toml" },
     },
+
+    formatting.shfmt,
+
   },
   on_attach = require("lsp.onattach").on_attach,
 }
