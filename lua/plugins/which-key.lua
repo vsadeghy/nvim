@@ -16,8 +16,8 @@ local hopmappings = {
   f = { "<cmd>HopChar1CurrentLineAC<CR>", "Find" },
   F = { "<cmd>HopChar1CurrentLineBC<CR>", "Find" },
   l = { "<cmd>HopLineStart<CR>", "line" },
-  s = { "<cmd>HopChar2AC<CR>", "seek" },
-  S = { "<cmd>HopChar2BC<CR>", "Seek" },
+  -- s = { "<cmd>HopChar2AC<CR>", "seek" },
+  s = { "<cmd>HopChar2<CR>", "Seek" },
   w = { "<cmd>HopWordAC<CR>", "word" },
   W = { "<cmd>HopWordBC<CR>", "Word" },
   p = { "<cmd>HopPattern<CR>", "pattern" },
@@ -46,10 +46,10 @@ wk.register {
     },
     g = {
       name = "+Git",
-      j = { "<cmd>Gitsigns next_hunk<CR>", "Next Hunk" },
-      k = { "<cmd>Gitsigns prev_hunk<CR>", "Prev Hunk" },
-      l = { "<cmd>lua _LAZTGIT_TOGGLE()<CR>", "Lazygit"},
-      n = { "<cmd>Neogit<CR>", "Neogit"},
+      j = { "<cmd>Gitsigns next_hunk<CR>zz", "Next Hunk" },
+      k = { "<cmd>Gitsigns prev_hunk<CR>zz", "Prev Hunk" },
+      l = { "<cmd>lua _LAZTGIT_TOGGLE()<CR>", "Lazygit" },
+      n = { "<cmd>Neogit<CR>", "Neogit" },
       p = { "<cmd>Gitsigns preview_hunk<CR>", "Preview Hunk" },
       r = { "<cmd>Gitsigns reset_hunk<CR>", "Reset Hunk" },
       R = { "<cmd>Gitsigns reset_buffer<CR>", "Reset Buffer" },
@@ -122,7 +122,7 @@ wk.register({
       u = { "<cmd>Gitsigns undo_stage_hunk<CR>", "Undo Stage Hunk" },
       r = { "<cmd>Gitsigns reset_hunk<CR>", "Reset Hunk" },
     },
-    ["/"] = { "gc", "comment", silent = false, noremap = true },
+    ["/"] = { "gcgv", "comment", noremap = false },
   },
   [";"] = hopmappings,
 }, { mode = "v" })
@@ -149,6 +149,7 @@ tmap("<A-h>", [[<C-\><C-n><C-w><C-h>]])
 tmap("<A-l>", [[<C-\><C-n><C-w><C-l>]])
 tmap("<esc>", [[<C-\><C-n>]])
 tmap("<jk>", [[<C-\><C-n>]])
+tmap("<nn>", [[<C-\><C-n>]])
 
 cmap("<A-k>", "<up>")
 cmap("<A-j>", "<down>")
