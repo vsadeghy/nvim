@@ -39,9 +39,10 @@ O = {
 }
 
 PO = {
-  colorscheme = "catppuccin",
+  colorscheme = "tokyonight",
   borders = true,
-  enabledLanguages = { "typescript", "lua", "bash", "python", "svelte", "css" },
+  enabledLanguages = { "typescript", "lua", "bash", "python", "svelte", "css", "rust" },
+  -- enabledLanguages = { "null-ls" },
 }
 
 G = {

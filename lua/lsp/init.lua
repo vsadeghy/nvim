@@ -1,5 +1,5 @@
 local failed = {}
-for _, l in pairs(PO.enabledLanguages) do
+for _, l in pairs(PO.enabledLanguages or {}) do
   local loaded = pcall(require, "lsp." .. l)
   if not loaded then
     table.insert(failed, l)

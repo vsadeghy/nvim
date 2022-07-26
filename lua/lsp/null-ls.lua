@@ -8,9 +8,9 @@ null_ls.setup {
 
     actions.eslint_d,
     diagnostics.eslint_d,
-    formatting.prettierd.with({
-      -- extra_filetypes = {"svelte"}
-    }),
+    formatting.prettierd.with {
+      extra_filetypes = { "svelte" },
+    },
 
     formatting.stylua.with {
       extra_args = { "--config-path", vim.fn.expand "~/.config/stylua.toml" },
@@ -23,6 +23,7 @@ null_ls.setup {
     formatting.black,
     -- formatting.autopep8,
     -- formatting.yapf,
+    -- formatting.rustfmt,
   },
   on_attach = require("lsp.onattach").on_attach,
 }
