@@ -1,4 +1,5 @@
-vim.g.dashboard_custom_header = {
+local db = require "dashboard"
+db.custom_header = {
   "     _   __________   ",
   "    | | / / __/ __/   ",
   "    | |/ /\\ \\_\\ \\     ",
@@ -9,16 +10,16 @@ vim.g.dashboard_custom_header = {
   "                      ",
 }
 
-vim.g.dashboard_default_executive = "telescope"
+-- vim.g.dashboard_default_executive = "telescope"
 
-vim.g.dashboard_custom_section = {
-  a = { description = { "  Find File          " }, command = "Telescope find_files" },
-  b = { description = { "  Recently Used Files" }, command = "Telescope oldfiles" },
-  -- c = {description = {'  Load Last Session  '}, command = 'SessionLoad'},
-  c = { description = { "  Projects           " }, command = "Telescope project" },
-  d = { description = { "  Find Word          " }, command = "Telescope live_grep" },
-  e = { description = { "  Settings           " }, command = ":e " .. CONFIG_PATH .. "/settings.lua" },
-  -- e = {description = {'  Marks              '}, command = 'Telescope marks'}
+db.custom_center = {
+  { icon = " ", desc = "Projects           ", action = "Telescope project" },
+  { icon = " ", desc = "Recently Used Files", action = "Telescope oldfiles" },
+  { icon = " ", desc = "Find File          ", action = "Telescope find_files" },
+  -- { icon =" ", desc = "Load Last Session  ", action = "SessionLoad" },
+  { icon = " ", desc = "Find Word          ", action = "Telescope live_grep" },
+  { icon = " ", desc = "Settings           ", action = ":e " .. CONFIG_PATH .. "/settings.lua" },
+  { icon = " ", desc = "Marks              ", action = "Telescope marks" },
 }
 
-vim.g.dashboard_custom_footer = { "" }
+-- vim.g.dashboard_custom_footer = { "" }

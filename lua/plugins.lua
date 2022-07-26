@@ -48,12 +48,16 @@ return require("packer").startup(function(use)
     config = function() require("plugins.telescope") end,
   }
 
-  use {"akinsho/toggleterm.nvim",
+  use { "akinsho/toggleterm.nvim", tag = 'v2.*',
     config = function() require("plugins.toggleterm") end,
   }
 
+  use { "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+    config = function() require("plugins.lsplines") end,
+  }
+
   -- surround text
-  use { "blackCauldron7/surround.nvim",
+  use { "ur4ltz/surround.nvim",
     config = function()
       require("surround").setup {mappings_style = "surround"} -- mappings_style could be "surround" or "sandwich"
     end
@@ -121,10 +125,15 @@ return require("packer").startup(function(use)
     config = function() require("neogit").setup{} end
   }
 
-use { "folke/zen-mode.nvim",
-  config = function() require("zen-mode").setup{} end
-}
-  use {"windwp/nvim-autopairs",
+  use { "NTBBloodbath/rest.nvim",
+    requires = { "nvim-lua/plenary.nvim" },
+    config = function() require("rest-nvim").setup() end
+  }
+
+  use { "folke/zen-mode.nvim",
+    config = function() require("zen-mode").setup {} end
+  }
+  use { "windwp/nvim-autopairs",
     config = function() require("plugins.autopairs") end
   }
 
@@ -168,6 +177,7 @@ use { "folke/zen-mode.nvim",
     opt = false,
   }
   use {"anott03/nvim-lspinstall", opt = true}
+  use { "mfussenegger/nvim-dap" }
 
   use {"folke/trouble.nvim",
     requires = {"kyazdani42/nvim-web-devicons"},
