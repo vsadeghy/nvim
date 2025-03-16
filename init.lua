@@ -1,34 +1,31 @@
-require "impatient"
-local disabled_built_ins = {
-  "netrw",
-  "netrwPlugin",
-  "netrwSettings",
-  "netrwFileHandlers",
-  "gzip",
-  "zip",
-  "zipPlugin",
-  "tar",
-  "tarPlugin",
-  "getscript",
-  "getscriptPlugin",
-  "vimball",
-  "vimballPlugin",
-  "2html_plugin",
-  "logipat",
-  "rrhelper",
-  "spellfile_plugin",
-  "matchit",
-}
+-- Load the things
+require("options")
+require("keymaps")
+require("autocmds")
 
-for _, plugin in pairs(disabled_built_ins) do
-  vim.g["loaded_" .. plugin] = 1
-end
+local utils = require("utils")
 
-require "globals"
-require "settings"
-require "utils"
+local load_lazy = utils.set(function()
+    local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+    if not vim.loop.fs_stat(lazypath) then
+        vim.fn.system({
+            "git",
+            "clone",
+            "--filter=blob:none",
+            "https://github.com/folke/lazy.nvim.git",
+            "--branch=stable", -- latest stable release
+            lazypath,
+        })
+    end
+    vim.opt.rtp:prepend(lazypath)
+end, function()
+    -- Short URL will be replaced
+    vim.opt.rtp:prepend([[lazy.nvim-plugin-path]])
+end)
 
-require "packerInit"
-require "packer_compiled"
+load_lazy()
 
-vim.cmd("colorscheme " .. PO.colorscheme)
+require("lazy").setup("plugins", { 
+    rocks = { enabled = false },
+    performance = { rtp = { reset = utils.set(true, false) } }
+})
