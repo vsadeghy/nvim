@@ -201,6 +201,7 @@
 
         # Formatters
         prettierd
+        biome
         nodePackages_latest.prettier
         stylua
         # black
