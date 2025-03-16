@@ -1,4 +1,4 @@
 return {
-    "tpope/vim-sleuth",
-    event = require("utils.lazyfile"),
+  "tpope/vim-sleuth",
+  event = require "utils.lazyfile",
 }

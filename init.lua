@@ -1,12 +1,12 @@
 -- Load the things
-require("options")
-require("keymaps")
-require("autocmds")
+require "options"
+require "keymaps"
+require "autocmds"
 
-require("load_lazy")
+require "load_lazy"
 
-local set = require("utils.set")
+local set = require "utils.set"
 require("lazy").setup("plugins", {
-    rocks = { enabled = false },
-    performance = { rtp = { reset = set(true, false) } },
+  rocks = { enabled = false },
+  performance = { rtp = { reset = set(true, false) } },
 })

@@ -29,6 +29,6 @@ vim.keymap.set("n", "<C-j>", "<cmd>cnext<CR>")
 vim.keymap.set("n", "<C-k>", "<cmd>cprev<CR>")
 
 vim.api.nvim_create_user_command("E", function()
-    vim.cmd.wa()
-    vim.cmd.qa()
+  vim.cmd.wa()
+  vim.cmd.qa()
 end, {})

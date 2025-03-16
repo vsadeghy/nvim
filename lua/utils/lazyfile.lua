@@ -1,6 +1,6 @@
 LazyFile = {
-    "BufReadPost",
-    "BufNewFile",
-    "BufWritePre",
+  "BufReadPost",
+  "BufNewFile",
+  "BufWritePre",
 }
 return LazyFile

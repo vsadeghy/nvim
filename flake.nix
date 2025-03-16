@@ -246,7 +246,8 @@
       # can be generated using
       customSubs = with pkgs.vimPlugins patchUtils; []
             # ++ (patchUtils.githubUrlSub "saghen/blink.cmp" blink-pkg)
-            ++ (patchUtils.stringSub "myHello" "world");
+            ++ (patchUtils.stringSub "biome.json-path" ./lua/plugins/lspfiles/biome.json)
+            ++ (patchUtils.stringSub "stylua.toml-path" ./lua/plugins/lspfiles/stylua.toml);
             # For example, if you want to add a plugin with the short url
             # "cool/plugin" which is in nixpkgs as plugin-nvim you would do:
             # ++ (patchUtils.githubUrlSub "cool/plugin" plugin-nvim);
