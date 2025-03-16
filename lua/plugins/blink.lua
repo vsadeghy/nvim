@@ -2,7 +2,7 @@
 --     return {}
 -- end
 
-local utils = require("utils")
+local border = require("utils.border").border
 
 return {
     "saghen/blink.cmp",
@@ -85,7 +85,7 @@ return {
                 auto_show_delay_ms = 0,
                 update_delay_ms = 50,
                 window = {
-                    border = utils.border,
+                    border = border,
                     direction_priority = {
                         menu_north = { "e", "w", "s", "n" },
                         menu_south = { "e", "w", "s", "n" },
@@ -93,7 +93,7 @@ return {
                 },
             },
             menu = {
-                border = utils.border,
+                border = border,
                 auto_show = true,
             },
             list = {},
@@ -112,7 +112,7 @@ return {
         signature = {
             enabled = true,
             window = {
-                border = utils.border,
+                border = border,
             },
         },
 

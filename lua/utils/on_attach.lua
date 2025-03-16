@@ -1,47 +1,5 @@
-local M = {}
-
-M.border = {
-    { "╭", "FloatBorder" },
-    { "─", "FloatBorder" },
-    { "╮", "FloatBorder" },
-    { "│", "FloatBorder" },
-    { "╯", "FloatBorder" },
-    { "─", "FloatBorder" },
-    { "╰", "FloatBorder" },
-    { "│", "FloatBorder" },
-}
-
-local update_border = function()
-    local orig_floating_preview = vim.lsp.util.open_floating_preview
-
-    ---@diagnostic disable-next-line: duplicate-set-field
-    function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
-        opts = opts or {}
-        opts.border = opts.border or M.border
-        return orig_floating_preview(contents, syntax, opts, ...)
-    end
-end
-
-M.LazyFile = { "BufReadPost", "BufNewFile", "BufWritePre" }
-
-M.isNix = vim.g.nix == true
-M.isNotNix = vim.g.nix == nil
-
-function M.set(nonNix, nix)
-    if M.isNix then
-        return nix
-    else
-        return nonNix
-    end
-end
-
-function M.is_loaded(name)
-    local Config = require("lazy.core.config")
-    return Config.plugins[name] and Config.plugins[name]._.loaded
-end
-
-function M.on_attach(client, bufnr)
-    update_border()
+local on_attach = function(client, bufnr)
+    require("utils.border").update_border()
 
     local nmap = function(keys, func, desc)
         if desc then
@@ -84,4 +42,4 @@ function M.on_attach(client, bufnr)
     -- })
 end
 
-return M
+return on_attach

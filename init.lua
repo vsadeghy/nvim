@@ -3,9 +3,9 @@ require("options")
 require("keymaps")
 require("autocmds")
 
-local utils = require("utils")
+local set = require("utils.set")
 
-local load_lazy = utils.set(function()
+local load_lazy = set(function()
     local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
     if not vim.loop.fs_stat(lazypath) then
         vim.fn.system({
@@ -25,7 +25,7 @@ end)
 
 load_lazy()
 
-require("lazy").setup("plugins", { 
+require("lazy").setup("plugins", {
     rocks = { enabled = false },
-    performance = { rtp = { reset = utils.set(true, false) } }
+    performance = { rtp = { reset = set(true, false) } },
 })

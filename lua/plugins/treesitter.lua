@@ -1,4 +1,4 @@
-local utils = require("utils")
+local set = require("utils.set")
 
 return {
     {
@@ -44,10 +44,10 @@ return {
             require("nvim-treesitter.query_predicates")
         end,
 
-        build = utils.set(":TSUpdate"),
+        build = set(":TSUpdate"),
         config = function()
             require("nvim-treesitter.configs").setup({
-                auto_install = utils.set(true, false),
+                auto_install = set(true, false),
                 highlight = {
                     enable = true,
                     disable = { "latex" },

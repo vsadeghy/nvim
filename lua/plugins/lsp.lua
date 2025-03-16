@@ -1,4 +1,4 @@
-local utils = require("utils")
+local on_attach = require("utils.on_attach")
 
 return {
     {
@@ -50,7 +50,7 @@ return {
 
             -- Lua
             setup_autocmd("lua_ls", "lua", {
-                on_attach = utils.on_attach,
+                on_attach = on_attach,
                 cmd = { "lua-language-server" },
                 capabilities = capabilities,
                 settings = {
@@ -81,36 +81,36 @@ return {
 
             -- Markdown
             setup_autocmd("marksman", "markdown", {
-                on_attach = utils.on_attach,
+                on_attach = on_attach,
                 cmd = { "marksman" },
                 capabilities = capabilities,
             })
             -- Nix
             setup_autocmd("nixd", "nix", {
-                on_attach = utils.on_attach,
+                on_attach = on_attach,
                 cmd = { "nixd" },
                 capabilities = capabilities,
             })
 
             -- Python
             -- setup_autocmd("pyright", "python", {
-            --     on_attach = utils.on_attach,
+            --     on_attach = on_attach,
             --     capabilities = capabilities,
             -- })
 
             -- Web
             setup_autocmd("ts_ls", { "typescript", "javascript", "html" }, {
-                on_attach = utils.on_attach,
+                on_attach = on_attach,
                 capabilities = capabilities,
             })
 
             setup_autocmd("html", "html", {
-                on_attach = utils.on_attach,
+                on_attach = on_attach,
                 capabilities = capabilities,
             })
 
             setup_autocmd("tailwindcss", "css", {
-                on_attach = utils.on_attach,
+                on_attach = on_attach,
                 cmd = { "tailwindcss-language-server" },
                 capabilities = capabilities,
             })
@@ -134,7 +134,7 @@ return {
     --                 enable_clippy = true,
     --             },
     --             server = {
-    --                 on_attach = utils.on_attach,
+    --                 on_attach = on_attach,
     --                 default_settings = {
     --                     ["rust-analyzer"] = {
     --                         cargo = {

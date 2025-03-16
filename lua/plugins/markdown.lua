@@ -1,11 +1,11 @@
-local utils = require("utils")
+local set = require("utils.set")
 
 return {
     {
         "iamcco/markdown-preview.nvim",
         cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
         ft = { "markdown" },
-        build = utils.set(function()
+        build = set(function()
             vim.fn["mkdp#util#install"]()
         end),
     },

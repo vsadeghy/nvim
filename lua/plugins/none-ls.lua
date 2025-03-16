@@ -1,4 +1,4 @@
-local utils = require("utils")
+local on_attach = require("utils.on_attach")
 
 return {
     "nvimtools/none-ls.nvim",
@@ -33,7 +33,7 @@ return {
                     },
                 }),
             },
-            on_attach = utils.on_attach,
+            on_attach = on_attach,
         })
     end,
 }
