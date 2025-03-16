@@ -23,6 +23,6 @@ return {
     --     -- vim.keymap.set("n", "<C-n>", ":Neotree filesystem reveal left<cr>")
     -- end,
     keys = {
-        { "<C-n>", ":Neotree filesystem reveal left<cr>" },
+        { "<C-n>", ":Neotree filesystem reveal right<cr>" },
     },
 }
