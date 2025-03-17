@@ -115,10 +115,8 @@
         # rustaceanvim
         none-ls-nvim
 
-        nvim-dap # rustaceanvim dep
-
-        # hex
-        hex-nvim
+        nvim-dap
+        # rustaceanvim
 
         # treesitter
         nvim-treesitter-textobjects
@@ -166,6 +164,7 @@
         onedark-nvim
         catppuccin-nvim
         tokyonight-nvim
+        nvim-colorizer-lua
 
         #misc
         comment-nvim
@@ -175,6 +174,10 @@
         markview-nvim
         image-nvim
         autoclose-nvim
+
+        # movement
+        vim-tmux-navigator
+        harpoon2
       ];
 
       # Runtime dependencies. This is thing like tree-sitter, lsps or programs

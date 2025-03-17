@@ -6,37 +6,28 @@ return {
       "nvim-lua/plenary.nvim",
       "debugloop/telescope-undo.nvim",
       "nvim-telescope/telescope-ui-select.nvim",
+      "nvim-telescope/telescope-fzf-native.nvim",
     },
     cmd = "Telescope",
     keys = {
-      { "<leader>f", "<cmd>Telescope find_files<cr>" },
-      { "<leader>ls", "<cmd>Telescope live_grep<cr>" },
-      { "<leader>bs", "<cmd>Telescope current_buffer_fuzzy_find<cr>" },
+      { "<C-f>", "<cmd>Telescope find_files<cr>" },
+      { "<leader>sf", "<cmd>Telescope find_files<cr>", desc = "Search Files" },
+      { "<leader>st", "<cmd>Telescope live_grep<cr>", desc = "Search Text" },
+      { "<leader>sb", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "Search Buffer" },
       { "gr", "<cmd>Telescope lsp_references<cr>" },
     },
     config = function()
       local telescope = require "telescope"
-      local previewers = require "telescope.previewers"
-      local utils = require "telescope.previewers.utils"
-      local pfiletype = require "plenary.filetype"
-
-      local new_maker = function(filepath, bufnr, opts)
-        opts = opts or {}
-        if opts.use_ft_detect == nil then
-          local ft = pfiletype.detect(filepath)
-          opts.use_ft_detect = false
-
-          if ft == "zig" then
-            utils.regex_highlighter(bufnr, ft)
-          end
-        end
-
-        previewers.buffer_previewer_maker(filepath, bufnr, opts)
-      end
 
       telescope.setup {
         defaults = {
-          buffer_previewer_maker = new_maker,
+          file_ignore_patterns = {
+            "node%_modules",
+            "%.git",
+            "dist",
+            "package%-lock.json",
+            "yarn.lock",
+          },
         },
         extensions = {
           ["ui-select"] = {
@@ -48,6 +39,7 @@ return {
 
       telescope.load_extension "ui-select"
       telescope.load_extension "undo"
+      telescope.load_extension "fzf"
     end,
   },
 }
