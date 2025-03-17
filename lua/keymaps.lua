@@ -1,32 +1,68 @@
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
+
+local map = function(mode, key, func, desc, opts)
+  local options = { silent = true }
+  if desc then
+    options = vim.tbl_extend("force", options, { desc = desc })
+  end
+  options = vim.tbl_extend("force", options, opts or {})
+  vim.keymap.set(mode, key, func, options)
+end
+local _ = nil
+
+map({ "n", "v" }, "<space>", "<nop>")
 -- Better movement
-vim.keymap.set({ "n", "v" }, "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
-vim.keymap.set({ "n", "v" }, "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+map({ "n", "v" }, "j", "v:count == 0 ? 'gj' : 'j'", _, { expr = true })
+map({ "n", "v" }, "k", "v:count == 0 ? 'gk' : 'k'", _, { expr = true })
+map("v", ">", ">gv")
+map("v", "<", "<gv")
+map("", "H", "^")
+map("", "L", "$")
 
-vim.keymap.set("v", "J", ":m '>+1<cr>gv=gv", { silent = true })
-vim.keymap.set("v", "K", ":m '<-2<cr>gv=gv", { silent = true })
+-- Move Lines
+map("v", "J", ":m '>+1<cr>gv=gv")
+map("v", "K", ":m '<-2<cr>gv=gv")
 
-vim.keymap.set({ "n", "v" }, "<C-d>", "<C-d>zz", { silent = true })
-vim.keymap.set({ "n", "v" }, "<C-u>", "<C-u>zz", { silent = true })
+-- Center after jump
+map({ "n", "v" }, "<C-d>", "<C-d>zz")
+map({ "n", "v" }, "<C-u>", "<C-u>zz")
+map("n", "n", "nzz")
+map("n", "N", "Nzz")
+map("n", "<C-o>", "<C-o>zz")
+map("n", "<C-i>", "<C-i>zz")
 
-vim.keymap.set("n", "n", "nzz")
-vim.keymap.set("n", "N", "Nzz")
+map("n", "'", "`")
 
-vim.keymap.set("n", "'", "`")
-
--- Better line inserting
-vim.keymap.set("n", "<leader>o", 'o<Esc>"_D')
-vim.keymap.set("n", "<leader>O", 'O<Esc>"_D')
+-- Better Inserting
+--
+map("n", "<leader>o", 'o<Esc>0"_D', "Better New Line")
+map("n", "<leader>O", 'O<Esc>0"_D', "Better New Line")
+map("v", "p", '"_dp')
 
 -- Better deleting
-vim.keymap.set("n", "<leader>d", '0"_D')
+map("n", "<leader>d", '0"_D')
+map("n", "x", '"_x')
 
 -- Better leaving things
-vim.keymap.set("i", "<C-c>", "<Esc>")
+map("i", "jk", "<Esc>")
+map("i", "kj", "<Esc>")
 
--- Quick fix shit
+-- Quick Fix
+map("n", "<C-j>", "<cmd>cnext<cr>")
+map("n", "<C-k>", "<cmd>cprev<cr>")
 
-vim.keymap.set("n", "<C-j>", "<cmd>cnext<CR>")
-vim.keymap.set("n", "<C-k>", "<cmd>cprev<CR>")
+-- Buffers
+map("n", "<tab>", "<cmd>bnext<cr>")
+map("n", "<S-tab>", "<cmd>bprev<cr>")
+map("n", "<leader>w", "<cmd>write<cr>", "Save Buffer")
+map("n", "<leader>W", "<cmd>noautocmd write<cr>", "Save Buffer no Format")
+map("n", "<leader>q", "<cmd>bdelete<cr>", "Quit Buffer")
+map("n", "<leader>x", "<cmd>quit<cr>", "Quit Buffer")
+
+-- Comment
+map("n", "<leader>/", "gcc", "Comment", { remap = true })
+map("v", "<leader>/", "gc", "Comment", { remap = true })
 
 vim.api.nvim_create_user_command("E", function()
   vim.cmd.wa()

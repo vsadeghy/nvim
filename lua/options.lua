@@ -1,5 +1,3 @@
-vim.g.mapleader = " "
-
 vim.wo.number = true -- Set numbered lines (default: false)
 vim.opt.signcolumn = "yes" -- Keep signcolumn on by default (default: "auto")
 vim.opt.relativenumber = true -- Set relative numbered lines (default: false)
@@ -16,7 +14,7 @@ vim.opt.expandtab = true -- Convert tabs to spaces (default: false)
 vim.opt.scrolloff = 4 -- Minimal number of screen lines to keep above and below the cursor (default: 0)
 vim.opt.sidescrolloff = 8 -- Minimal number of screen columns either side of cursor if wrap is `false` (default: 0)
 vim.opt.cursorline = true -- Highlight the current line (default: false)
-vim.opt.colorcolumn = { 80, 81 }
+-- vim.opt.colorcolumn = { 80, 81 }
 vim.opt.splitbelow = true -- Force all horizontal splits to go below current window (default: false)
 vim.opt.splitright = true -- Force all vertical splits to go to the right of current window (default: false)
 vim.opt.hlsearch = false -- Set highlight on search (default: true)
@@ -25,7 +23,7 @@ vim.opt.whichwrap = "bs<>[]hl" -- Which "horizontal" keys are allowed to travel 
 vim.opt.numberwidth = 4 -- Set number column width to 2 {default 4} (default: 4)
 vim.opt.swapfile = false -- Creates a swapfile (default: true)
 vim.opt.smartindent = true -- Make indenting smarter again (default: false)
-vim.opt.showtabline = 2 -- Always show tabs (default: 1)
+vim.opt.showtabline = 1 -- Always show tabs (default: 1)
 vim.opt.backspace = "indent,eol,start" -- Allow backspace on (default: "indent,eol,start")
 vim.opt.pumheight = 10 -- Pop up menu height (default: 0)
 vim.opt.conceallevel = 0 -- So that `` is visible in markdown files (default: 1)
