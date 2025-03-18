@@ -19,7 +19,6 @@
 
     blink = {
       url = "github:Saghen/blink.cmp";
-      # url = "github:NicoElbers/blink.cmp";
       # inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -80,6 +79,9 @@
         # lazy
         lazy-nvim
 
+        # repeat
+        vim-repeat
+
         # completions
         nvim-cmp
         cmp_luasnip
@@ -92,8 +94,8 @@
         cmp-nvim-lsp-signature-help
 
         # completions 2
-        # blink-pkg
-        blink-cmp
+        blink-pkg
+        # blink-cmp
 
         # telescope
         plenary-nvim
@@ -251,7 +253,7 @@
       # Custom subsitutions you want the patcher to make. Custom subsitutions 
       # can be generated using
       customSubs = with pkgs.vimPlugins patchUtils; []
-            # ++ (patchUtils.githubUrlSub "saghen/blink.cmp" blink-pkg)
+            ++ (patchUtils.githubUrlSub "saghen/blink.cmp" blink-pkg)
             ++ (patchUtils.stringSub "biome.json-path" ./lua/plugins/lspfiles/biome.json)
             ++ (patchUtils.stringSub "stylua.toml-path" ./lua/plugins/lspfiles/stylua.toml);
             # For example, if you want to add a plugin with the short url

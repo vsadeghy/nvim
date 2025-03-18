@@ -1,3 +1,4 @@
+local kind_icons = require "utils.kind_icons"
 if true then
   return {}
 end
@@ -38,12 +39,16 @@ return {
           documentation = cmp.config.window.bordered(),
         },
         mapping = cmp.mapping.preset.insert {
+          -- Scroll the documentation window back / forward
           ["<C-d>"] = cmp.mapping.scroll_docs(-4),
           ["<C-f>"] = cmp.mapping.scroll_docs(4),
+
           ["<C-space>"] = cmp.mapping.confirm {
             behavior = cmp.ConfirmBehavior.Replace,
             select = true,
           },
+
+          -- Select next/previous item with
           ["<C-n>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
               cmp.select_next_item()
@@ -64,14 +69,33 @@ return {
           end, { "i", "s" }),
         },
         sources = cmp.config.sources({
-          { name = "path" },
+          {
+            name = "lazydev",
+            -- set group index to 0 to skip loading LuaLS completions as lazydev recommends it
+            group_index = 0,
+          },
           { name = "nvim_lsp" },
           { name = "nvim_lsp_signature_help" },
           { name = "luasnip" },
           { name = "nvim_lua" },
           { name = "buffer" },
+          { name = "path" },
           { name = "calc" },
         }, {}),
+        formatting = {
+          fields = { "kind", "abbr", "menu" },
+          format = function(entry, vim_item)
+            vim_item.kind = string.format("%s", kind_icons[vim_item.kind])
+            vim_item.menu = ({
+              nvim_lsp = "[LSP]",
+              supermaven = "[AI]",
+              luasnip = "[Snippet]",
+              buffer = "[Buffer]",
+              path = "[Path]",
+            })[entry.source.name]
+            return vim_item
+          end,
+        },
       }
     end,
   },

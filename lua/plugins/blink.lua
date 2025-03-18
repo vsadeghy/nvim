@@ -9,7 +9,7 @@ return {
   event = "InsertEnter",
 
   -- optional: provides snippets for the snippet source
-  -- dependencies = { "rafamadriz/friendly-snippets" },
+  dependencies = { "rafamadriz/friendly-snippets" },
 
   version = "v0.*",
 
@@ -103,7 +103,7 @@ return {
     appearance = {},
 
     fuzzy = {
-      implementation = "prefer_rust",
+      implementation = "prefer_rust_with_warning",
       prebuilt_binaries = {
         download = false,
       },
