@@ -92,6 +92,7 @@
         cmp-nvim-lua
         cmp-nvim-lsp
         cmp-nvim-lsp-signature-help
+        supermaven-nvim
 
         # completions 2
         blink-pkg

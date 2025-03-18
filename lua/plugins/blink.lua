@@ -3,13 +3,17 @@
 -- end
 
 local border = require("utils.border").border
+local kind_icons = require "utils.kind_icons"
 
 return {
   "saghen/blink.cmp",
   event = "InsertEnter",
 
   -- optional: provides snippets for the snippet source
-  dependencies = { "rafamadriz/friendly-snippets" },
+  dependencies = {
+    "rafamadriz/friendly-snippets",
+    "supermaven-inc/supermaven-nvim",
+  },
 
   version = "v0.*",
 
@@ -100,7 +104,9 @@ return {
       ghost_text = {},
     },
 
-    appearance = {},
+    appearance = {
+      kind_icons = kind_icons,
+    },
 
     fuzzy = {
       implementation = "prefer_rust_with_warning",
