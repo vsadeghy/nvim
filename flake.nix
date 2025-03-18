@@ -175,9 +175,12 @@
         image-nvim
         autoclose-nvim
 
-        # movement
+        # motion
         vim-tmux-navigator
         harpoon2
+        nvim-spider
+        leap-nvim
+        nvim-surround
       ];
 
       # Runtime dependencies. This is thing like tree-sitter, lsps or programs

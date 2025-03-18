@@ -12,7 +12,7 @@ return {
   },
   keys = {
       -- stylua: ignore
-      { "<C-h>", function() require("oil").open_float() end },
+      { "<leader>h", function() require("oil").open_float() end, desc = "Open Oil" },
   },
   -- Lazy loading is not recommended because it is very tricky to make it work correctly in all situations.
   -- lazy = false,

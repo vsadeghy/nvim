@@ -17,4 +17,12 @@ return {
     vim.keymap.set("n", "<C-;>", function() harpoon:list():select(4) end)
     --stylua: ignore end
   end,
+  keys = {
+    { "<leader>a" },
+    { "<C-e>" },
+    { "<C-j>" },
+    { "<C-k>" },
+    { "<C-l>" },
+    { "<C-;>" },
+  },
 }
