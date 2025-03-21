@@ -3,7 +3,6 @@
 -- end
 
 local border = require("utils.border").border
-local kind_icons = require "utils.kind_icons"
 
 return {
   "saghen/blink.cmp",
@@ -12,7 +11,6 @@ return {
   -- optional: provides snippets for the snippet source
   dependencies = {
     "rafamadriz/friendly-snippets",
-    "supermaven-inc/supermaven-nvim",
   },
 
   version = "v0.*",
@@ -104,9 +102,7 @@ return {
       ghost_text = {},
     },
 
-    appearance = {
-      kind_icons = kind_icons,
-    },
+    appearance = {},
 
     fuzzy = {
       implementation = "prefer_rust_with_warning",
@@ -126,7 +122,7 @@ return {
 
     sources = {
       -- add lazydev to your completion providers
-      default = { "lazydev", "lsp", "path", "snippets", "buffer" },
+      default = { "supermaven", "lazydev", "lsp", "path", "snippets", "buffer" },
       providers = {
         lazydev = {
           name = "LazyDev",

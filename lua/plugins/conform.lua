@@ -63,6 +63,7 @@ return {
       yaml = prettier,
       markdown = prettier,
       svelte = prettier,
+      nix = { "alejandra" },
       lua = { "stylua" },
       rust = { "rustfmt" },
     },

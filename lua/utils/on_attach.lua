@@ -22,12 +22,14 @@ local on_attach = function(client, bufnr)
   end
 
   cnmap("textDocument/hover", "K", vim.lsp.buf.hover, "Hover Docs")
-  cnmap("textDocument/definition", "gd", vim.lsp.buf.definition, "[G]oto [D]efinition")
-  cnmap("textDocument/declaration", "gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
-  cnmap("textDocument/implementation", "gi", vim.lsp.buf.implementation, "[G]oto [I]mplementation")
-  cnmap("textDocument/typeDefinition", "<leader>de", vim.lsp.buf.type_definition, "[T]ype [D]efinition")
-  cnmap("textDocument/rename", "<leader>rn", vim.lsp.buf.rename, "[R]e[N]ame")
-  cnmap("textDocument/codeAction", "<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
+  cnmap("textDocument/definition", "gd", vim.lsp.buf.definition, "Definition")
+  cnmap("textDocument/declaration", "gD", vim.lsp.buf.declaration, "Declaration")
+  cnmap("textDocument/implementation", "gI", vim.lsp.buf.implementation, "Implementation")
+  cnmap("textDocument/typeDefinition", "<leader>gT", vim.lsp.buf.type_definition, "Type Definition")
+  cnmap("textDocument/rename", "<leader>lr", vim.lsp.buf.rename, "Rename")
+  cnmap("textDocument/codeAction", "<leader>la", vim.lsp.buf.code_action, "Code Action")
+  cnmap("textDocument/documentSymbol", "<leader>ls", vim.lsp.buf.document_symbol, "Document Symbols")
+  cnmap("workspace/symbol", "<leader>lS", vim.lsp.buf.workspace_symbol, "Workspace Symbols")
 
   vim.lsp.inlay_hint.enable(false)
 

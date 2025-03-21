@@ -1,5 +1,45 @@
 local on_attach = require "utils.on_attach"
+local set = require "utils.set"
 
+local servers = {
+  -- ts_ls = {filetypes = {"typescript", "javascript", "html"}},
+  html = { filetypes = { "html" } },
+  cssls = { fileypes = { "css" } },
+  tailwindcss = { filetypes = { "css" } },
+  jsonls = { filetypes = { "json", "jsonc", "json5" } },
+  -- nil_ls = { filetypes = { "nix" }, cmd = { "nil" } },
+  nixd = { filetypes = { "nix" }, cmd = { "nixd" } },
+  -- pyright = {filetypes = {"python"}},
+  marksman = { filetypes = { "markdown" } },
+  lua_ls = {
+    filetypes = { "lua" },
+    cmd = { "lua-language-server" },
+    settings = {
+      Lua = {
+        completion = { callSnippet = "Replace" },
+        runtime = { version = "LuaJIT" },
+        path = vim.split(package.path, ";"),
+      },
+      workspace = {
+        checkThirdParty = false,
+        library = {
+          "${3rd}/luv/library",
+          unpack(vim.api.nvim_get_runtime_file("", true)),
+        },
+      },
+      diagonstics = {
+        global = { "vim" },
+        disable = { "missing-fields" },
+      },
+      format = {
+        enable = false,
+      },
+      telemetry = {
+        enable = false,
+      },
+    },
+  },
+}
 return {
   {
     "neovim/nvim-lspconfig",
@@ -19,102 +59,93 @@ return {
       "typescript",
     },
     config = function()
-      local capabilities = require("blink.cmp").get_lsp_capabilities({}, true)
+      vim.api.nvim_create_autocmd("LspAttach", {
+        group = vim.api.nvim_create_augroup("lsp-attach", { clear = true }),
+        callback = function(e)
+          local client = vim.lsp.get_client_by_id(e.data.client_id)
+          if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
+            local highlight_augroup = vim.api.nvim_create_augroup("lsp-highlight", { clear = false })
+            vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+              buffer = e.buf,
+              group = highlight_augroup,
+              callback = vim.lsp.buf.document_highlight,
+            })
 
-      local lspconfig = require "lspconfig"
+            vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
+              buffer = e.buf,
+              group = highlight_augroup,
+              callback = vim.lsp.buf.clear_references,
+            })
 
-      local function setup_autocmd(name, lang, opts)
-        local ft = vim.bo.filetype
-
-        if type(lang) == "string" then
-          if lang == ft then
-            lspconfig[name].setup(opts)
-            return
+            vim.api.nvim_create_autocmd("LspDetach", {
+              group = vim.api.nvim_create_augroup("lsp-detach", { clear = true }),
+              callback = function(e2)
+                vim.lsp.buf.clear_references()
+                vim.api.nvim_clear_autocmds { group = "lsp-highlight", buffer = e2.buf }
+              end,
+            })
           end
-        elseif type(lang) == "table" then
-          for _, v in ipairs(lang) do
-            if v == ft then
-              lspconfig[name].setup(opts)
-              return
+
+          if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
+            vim.keymap.set("n", "<leader>th", function()
+              vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = e.buf })
+            end, { buffer = e.buf, desc = "[T]oggle Inlay [H]ints" })
+          end
+        end,
+      })
+
+      -- local capabilities = vim.lsp.protocol.make_client_capabilities()
+      -- capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
+      local capabilities = require("blink.cmp").get_lsp_capabilities({}, true)
+      local lspconfig = require "lspconfig"
+      set(function()
+        require("mason").setup()
+        local ensure_installed = vim.tbl_keys(servers)
+        vim.list_extend(ensure_installed, {
+          "stylua",
+        })
+        require("mason-tool-installer").setup {
+          ensure_installed = ensure_installed,
+        }
+        require("mason-lspconfig").setup {
+          handlers = {
+            function(server_name)
+              local server = servers[server_name] or {}
+              server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
+              lspconfig[server_name].setup(server)
+            end,
+          },
+        }
+      end, function()
+        for server_name, server in pairs(servers) do
+          server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
+          server.on_attach = on_attach
+          local function server_setup()
+            lspconfig[server_name].setup(server)
+          end
+          for _, ft in ipairs(server.filetypes or {}) do
+            if ft == vim.bo.filetype then
+              server_setup()
             end
           end
+          -- vim.api.nvim_create_autocmd("FileType", {
+          --   pattern = server.filetypes,
+          --   callback = server_setup,
+          -- })
         end
-
-        vim.api.nvim_create_autocmd("FileType", {
-          pattern = lang,
-          callback = function()
-            lspconfig[name].setup(opts)
-          end,
-        })
-      end
-
-      -- Lua
-      setup_autocmd("lua_ls", "lua", {
-        on_attach = on_attach,
-        cmd = { "lua-language-server" },
-        capabilities = capabilities,
-        settings = {
-          Lua = {
-            runtime = {
-              -- Tell the language server which version of Lua youre using
-              version = "LuaJIT",
-              -- Setup your `runtimepath` for Neovim
-              path = vim.split(package.path, ";"),
-            },
-            diagnostics = {
-              -- Get the language server to recognize the `vim` global
-              globals = { "vim" },
-            },
-            workspace = {
-              -- Make the server aware of Neovim runtime files
-              library = vim.api.nvim_get_runtime_file("", true),
-              -- Adjust workspace check to reduce warnings about workspace folders
-              checkThirdParty = false,
-            },
-            telemetry = {
-              -- Disable telemetry to prevent data collection
-              enable = false,
-            },
-          },
-        },
-      })
-
-      -- Markdown
-      setup_autocmd("marksman", "markdown", {
-        on_attach = on_attach,
-        cmd = { "marksman" },
-        capabilities = capabilities,
-      })
-      -- Nix
-      setup_autocmd("nixd", "nix", {
-        on_attach = on_attach,
-        cmd = { "nixd" },
-        capabilities = capabilities,
-      })
-
-      -- Python
-      -- setup_autocmd("pyright", "python", {
-      --     on_attach = on_attach,
-      --     capabilities = capabilities,
-      -- })
-
-      -- Web
-      setup_autocmd("ts_ls", { "typescript", "javascript", "html" }, {
-        on_attach = on_attach,
-        capabilities = capabilities,
-      })
-
-      setup_autocmd("html", "html", {
-        on_attach = on_attach,
-        capabilities = capabilities,
-      })
-
-      setup_autocmd("tailwindcss", "css", {
-        on_attach = on_attach,
-        cmd = { "tailwindcss-language-server" },
-        capabilities = capabilities,
-      })
+      end)()
     end,
+  },
+  {
+    "pmizio/typescript-tools.nvim",
+    ft = { "javascript", "typescript", "javascriptreact", "typescriptreact" },
+    dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+    opts = {
+      on_attach = on_attach,
+      settings = {
+        expose_as_code_actions = "all",
+      },
+    },
   },
 
   -- -- Rust

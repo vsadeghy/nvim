@@ -79,6 +79,9 @@
         # lazy
         lazy-nvim
 
+        # nix in vim
+        vim-nix
+
         # repeat
         vim-repeat
 
@@ -117,6 +120,7 @@
         lazydev-nvim
         # rustaceanvim
         none-ls-nvim
+        typescript-tools-nvim
 
         nvim-dap
         # rustaceanvim
@@ -197,9 +201,12 @@
         # lsps
         lua-language-server
         nodePackages_latest.typescript-language-server
+        nodePackages_latest.pnpm
+        typescript
         vscode-langservers-extracted
         tailwindcss-language-server
         nixd
+        nil
         marksman
         # pyright
 
