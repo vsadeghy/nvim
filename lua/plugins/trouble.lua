@@ -21,7 +21,7 @@ return {
   cmd = "Trouble",
   keys = {
     {
-      "<leader>gr",
+      "<leader>lt",
       -- "<cmd>Trouble lsp toggle focus=false win.position=right open_no_results=true<cr>",
       function()
         require("trouble").toggle {
@@ -34,6 +34,7 @@ return {
           source = "",
         }
       end,
+      desc = "Trouble",
     },
     {
       "<leader>e",
@@ -44,6 +45,7 @@ return {
           auto_close = true,
         }
       end,
+      desc = "Trouble Diagnostics",
     },
   },
 }

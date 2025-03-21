@@ -1,15 +1,23 @@
-local signs = {
-  add = { text = "+" },
-  change = { text = "~" },
-  topdelete = { text = "‾" },
-  delete = { text = "_" },
-  changedelete = { text = "~" },
-}
 return {
   "lewis6991/gitsigns.nvim",
   event = require "utils.lazyfile",
-  opts = {
-    signs = signs,
-    signs_staged = signs,
+  opts = {},
+  keys = {
+    { "<leader>gj", "<cmd>Gitsigns next_hunk<cr>", desc = "Next Hunk" },
+    { "<leader>gk", "<cmd>Gitsigns prev_hunk<cr>", desc = "Prev Hunk" },
+    { "<leader>gs", "<cmd>Gitsigns stage_hunk<cr>", desc = "Stage Hunk", mode = { "n", "v" } },
+    { "<leader>gr", "<cmd>Gitsigns reset_hunk<cr>", desc = "Reset Hunk", mode = { "n", "v" } },
+    { "<leader>gS", "<cmd>Gitsigns stage_buffer<cr>", desc = "Stage Buffer" },
+    { "<leader>gu", "<cmd>Gitsigns undo_stage_hunk<cr>", desc = "Undo Stage Hunk" },
+    { "<leader>gp", "<cmd>Gitsigns preview_hunk<cr>", desc = "Preview Hunk" },
+    { "<leader>gb", "<cmd>Gitsigns blame_line full=true<cr>", desc = "Blame Line" },
+    { "<leader>tb", "<cmd>Gitsigns toggle_current_line_blame<cr>", desc = "Line Blame" },
+    { "<leader>gh", "<cmd>Gitsigns git_branches<cr>", desc = "Branches" },
+    { "<leader>gc", "<cmd>Telescope git_commits<cr>", desc = "Commits" },
+    { "<leader>gC", "<cmd>Telescope git_bcommits<cr>", desc = "Branch Commits" },
+    { "<leader>g?", "<cmd>Telescope git_status<cr>", desc = "Status" },
+    { "<leader>gd", "<cmd>Gitsigns diffthis<cr>", desc = "diff" },
+    { "<leader>gD", "<cmd>Gitsigns diffthis '~'<cr>", desc = "diff w/ Head" },
+    { "<leader>td", "<cmd>Gitsigns toggle_deleted<cr>", desc = "Toggle Deleted" },
   },
 }

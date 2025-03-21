@@ -162,6 +162,8 @@
         lualine-nvim
         nvim-web-devicons
         gitsigns-nvim
+        neogit
+        diffview-nvim
         nui-nvim
         neo-tree-nvim
         undotree
