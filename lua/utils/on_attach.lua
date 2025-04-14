@@ -1,5 +1,6 @@
 local on_attach = function(client, bufnr)
   require("utils.border").update_border()
+  local picker = require("snacks").picker
 
   local nmap = function(keys, func, desc)
     if desc then
@@ -22,14 +23,15 @@ local on_attach = function(client, bufnr)
   end
 
   cnmap("textDocument/hover", "K", vim.lsp.buf.hover, "Hover Docs")
-  cnmap("textDocument/definition", "gd", vim.lsp.buf.definition, "Definition")
-  cnmap("textDocument/declaration", "gD", vim.lsp.buf.declaration, "Declaration")
-  cnmap("textDocument/implementation", "gI", vim.lsp.buf.implementation, "Implementation")
-  cnmap("textDocument/typeDefinition", "<leader>gT", vim.lsp.buf.type_definition, "Type Definition")
+  cnmap("textDocument/definition", "gd", picker.lsp_definitions, "Definition")
+  cnmap("textDocument/declaration", "gD", picker.lsp_declarations, "Declaration")
+  cnmap("textDocument/implementation", "gI", picker.lsp_implementations, "Implementation")
+  cnmap("textDocument/typeDefinition", "gt", picker.lsp_type_definitions, "Type Definition")
+  cnmap("textDocument/references", "gr", picker.lsp_references, "References")
   cnmap("textDocument/rename", "<leader>lr", vim.lsp.buf.rename, "Rename")
   cnmap("textDocument/codeAction", "<leader>la", vim.lsp.buf.code_action, "Code Action")
-  cnmap("textDocument/documentSymbol", "<leader>ls", vim.lsp.buf.document_symbol, "Document Symbols")
-  cnmap("workspace/symbol", "<leader>lS", vim.lsp.buf.workspace_symbol, "Workspace Symbols")
+  cnmap("textDocument/documentSymbol", "<leader>ls", picker.lsp_symbols, "Document Symbols")
+  cnmap("workspace/symbol", "<leader>lS", picker.lsp_workspace_symbols, "Workspace Symbols")
 
   vim.lsp.inlay_hint.enable(false)
 

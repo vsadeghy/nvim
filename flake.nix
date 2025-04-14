@@ -23,54 +23,61 @@
     };
   };
 
-  outputs = { nixpkgs, nixPatch, blink, ... }@inputs: 
-  let
+  outputs = {
+    nixpkgs,
+    nixPatch,
+    blink,
+    ...
+  } @ inputs: let
     # Copied from flake utils
-    eachSystem = with builtins; systems: f:
-        let
+    eachSystem = with builtins;
+      systems: f: let
         # Merge together the outputs for all systems.
-        op = attrs: system:
-          let
+        op = attrs: system: let
           ret = f system;
-          op = attrs: key: attrs //
-            {
-              ${key} = (attrs.${key} or { })
-              // { ${system} = ret.${key}; };
-            }
-          ;
-          in
-          foldl' op attrs (attrNames ret);
+          op = attrs: key:
+            attrs
+            // {
+              ${key} =
+                (attrs.${key} or {})
+                // {${system} = ret.${key};};
+            };
         in
-        foldl' op { }
+          foldl' op attrs (attrNames ret);
+      in
+        foldl' op {}
         (systems
           ++ # add the current system if --impure is used
-          (if builtins ? currentSystem then
-             if elem currentSystem systems
-             then []
-             else [ currentSystem ]
-          else []));
+          (
+            if builtins ? currentSystem
+            then
+              if elem currentSystem systems
+              then []
+              else [currentSystem]
+            else []
+          ));
 
     forEachSystem = eachSystem nixpkgs.lib.platforms.all;
-
-  in 
-  let
+  in let
     # Easily configure a custom name, this will affect the name of the standard
     # executable, you can add as many aliases as you'd like in the configuration.
     name = "nixPatch";
 
     # Any custom package config you would like to do.
     extra_pkg_config = {
-        # allow_unfree = true;
+      # allow_unfree = true;
     };
 
-    configuration = { pkgs, system, ... }: 
-    let
+    configuration = {
+      pkgs,
+      system,
+      ...
+    }: let
       lib = pkgs.lib;
       patchUtils = nixPatch.patchUtils.${pkgs.system};
 
       blink-pkg = blink.packages.${system}.default;
-    in 
-    {
+    in {
       # The path to your neovim configuration.
       luaPath = ./.;
 
@@ -128,34 +135,35 @@
         # treesitter
         nvim-treesitter-textobjects
         (nvim-treesitter.withPlugins (
-          plugins: with plugins; [
-            bash
-            css
-            html
-            http
-            javascript
-            lua
-            make
-            markdown
-            markdown_inline
-            nix
-            toml
-            typescript
-            vim
-            vimdoc
-            xml
-            yaml
-            comment
-            diff
-            git_config
-            git_rebase
-            gitcommit
-            gitignore
-            gpg
-            json
-            json5
-            ssh_config
-          ]
+          plugins:
+            with plugins; [
+              bash
+              css
+              html
+              http
+              javascript
+              lua
+              make
+              markdown
+              markdown_inline
+              nix
+              toml
+              typescript
+              vim
+              vimdoc
+              xml
+              yaml
+              comment
+              diff
+              git_config
+              git_rebase
+              gitcommit
+              gitignore
+              gpg
+              json
+              json5
+              ssh_config
+            ]
         ))
 
         # ui
@@ -176,6 +184,7 @@
         nvim-colorizer-lua
 
         #misc
+        snacks-nvim
         comment-nvim
         vim-sleuth
         indent-blankline-nvim
@@ -183,6 +192,7 @@
         markview-nvim
         image-nvim
         autoclose-nvim
+        vim-abolish
 
         # motion
         vim-tmux-navigator
@@ -209,6 +219,7 @@
         tailwindcss-language-server
         nixd
         nil
+        alejandra
         marksman
         # pyright
 
@@ -231,45 +242,46 @@
       ];
 
       # Environment variables set during neovim runtime.
-      environmentVariables = { };
+      environmentVariables = {};
 
       # Extra wrapper args you want to pass.
       # Look here if you don't know what those are:
       # https://github.com/NixOS/nixpkgs/blob/master/pkgs/build-support/setup-hooks/make-wrapper.sh
-      extraWrapperArgs = [ ];
+      extraWrapperArgs = [];
 
       # Extra python packages for the neovim provider.
       # This must be a list of functions returning lists.
-      python3Packages = [ ];
+      python3Packages = [];
 
       # Wrapper args but then for the python provider.
-      extraPython3WrapperArgs = [ ];
+      extraPython3WrapperArgs = [];
 
       # Extra lua packages for the neovim lua runtime.
-      luaPackages = [ ];
+      luaPackages = [];
 
       # Extra shared libraries available at runtime.
-      sharedLibraries = [ ];
+      sharedLibraries = [];
 
       # Aliases for the patched config
-      aliases = [ "nv" "vim" "vi" "nvim" ];
+      aliases = ["nv" "vim" "vi" "nvim"];
 
       # Extra lua configuration put at the top of your init.lua
       # This cannot replace your init.lua, if none exists in your configuration
-      # this will not be writtern. 
+      # this will not be writtern.
       # Must be provided as a list of strings.
-      extraConfig = [ ];
+      extraConfig = [];
 
-      # Custom subsitutions you want the patcher to make. Custom subsitutions 
+      # Custom subsitutions you want the patcher to make. Custom subsitutions
       # can be generated using
-      customSubs = with pkgs.vimPlugins patchUtils; []
-            ++ (patchUtils.githubUrlSub "saghen/blink.cmp" blink-pkg)
-            ++ (patchUtils.stringSub "biome.json-path" ./lua/plugins/lspfiles/biome.json)
-            ++ (patchUtils.stringSub "stylua.toml-path" ./lua/plugins/lspfiles/stylua.toml);
-            # For example, if you want to add a plugin with the short url
-            # "cool/plugin" which is in nixpkgs as plugin-nvim you would do:
-            # ++ (patchUtils.githubUrlSub "cool/plugin" plugin-nvim);
-            # For more examples look here: https://github.com/NicoElbers/nv/blob/main/subPatches.nix
+      customSubs = with pkgs.vimPlugins patchUtils;
+        []
+        ++ (patchUtils.githubUrlSub "saghen/blink.cmp" blink-pkg)
+        ++ (patchUtils.stringSub "biome.json-path" ./lua/plugins/lspfiles/biome.json)
+        ++ (patchUtils.stringSub "stylua.toml-path" ./lua/plugins/lspfiles/stylua.toml);
+      # For example, if you want to add a plugin with the short url
+      # "cool/plugin" which is in nixpkgs as plugin-nvim you would do:
+      # ++ (patchUtils.githubUrlSub "cool/plugin" plugin-nvim);
+      # For more examples look here: https://github.com/NicoElbers/nv/blob/main/subPatches.nix
 
       settings = {
         # Enable the NodeJs provider
@@ -284,7 +296,7 @@
         # Enable the python3 provider
         withPython3 = true;
 
-        # Any extra name 
+        # Any extra name
         extraName = "";
 
         # The default config directory for neovim
@@ -294,7 +306,7 @@
         # neovim-unwrapped = inputs.nixPatch.neovim-nightly.${system};
 
         # Whether to add custom subsitution made in the original repo, makes for
-        # a better out of the box experience 
+        # a better out of the box experience
         patchSubs = true;
 
         # Whether to add runtime dependencies to the back of the path
@@ -304,9 +316,9 @@
         suffix-LD = false;
       };
     };
-  in 
-  forEachSystem (system: {
-    packages.default = 
-      nixPatch.configWrapper.${system} { inherit configuration extra_pkg_config name; };
-  });
+  in
+    forEachSystem (system: {
+      packages.default =
+        nixPatch.configWrapper.${system} {inherit configuration extra_pkg_config name;};
+    });
 }

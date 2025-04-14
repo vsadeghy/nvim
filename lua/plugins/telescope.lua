@@ -10,10 +10,10 @@ return {
     },
     cmd = "Telescope",
     keys = {
-      { "<C-f>", "<cmd>Telescope find_files<cr>" },
-      { "<leader>sf", "<cmd>Telescope find_files<cr>", desc = "Search Files" },
-      { "<leader>st", "<cmd>Telescope live_grep<cr>", desc = "Search Text" },
-      { "<leader>sb", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "Search Buffer" },
+      -- { "<C-f>", "<cmd>Telescope find_files<cr>" },
+      -- { "<leader>sf", "<cmd>Telescope find_files<cr>", desc = "Search Files" },
+      -- { "<leader>st", "<cmd>Telescope live_grep<cr>", desc = "Search Text" },
+      -- { "<leader>sb", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "Search Buffer" },
       { "gr", "<cmd>Telescope lsp_references<cr>" },
     },
     config = function()
