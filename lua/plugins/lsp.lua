@@ -2,7 +2,7 @@ local on_attach = require "utils.on_attach"
 local set = require "utils.set"
 
 local servers = {
-  -- ts_ls = {filetypes = {"typescript", "javascript", "html"}},
+  -- ts_ls = { filetypes = { "javascript", "typescript", "javascriptreact", "typescriptreact" } },
   html = { filetypes = { "html" } },
   cssls = { fileypes = { "css" } },
   tailwindcss = { filetypes = { "css" } },
@@ -47,6 +47,19 @@ return {
       "folke/lazydev.nvim",
       "j-hui/fidget.nvim",
       "saghen/blink.cmp",
+      {
+        "williamboman/mason.nvim",
+        enabled = set(true, false),
+        config = true,
+      },
+      {
+        "williamboman/mason-lspconfig.nvim",
+        enabled = set(true, false),
+      },
+      {
+        "WhoIsSethDaniel/mason-tool-installer.nvim",
+        enabled = set(true, false),
+      },
     },
     ft = {
       "lua",
@@ -141,9 +154,19 @@ return {
     ft = { "javascript", "typescript", "javascriptreact", "typescriptreact" },
     dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
     opts = {
-      on_attach = on_attach,
+      on_attach = function(client, bufnr)
+        client.server_capabilities.documentFormattingProvider = false
+        client.server_capabilities.documentRangeFormattingProvider = false
+        on_attach(client, bufnr)
+      end,
       settings = {
         expose_as_code_actions = "all",
+        -- expose_as_code_actions = {
+        --   "add_missing_imports",
+        --   "organize_imports",
+        --   "remove_unused_imports",
+        --   "remove_unused",
+        -- },
       },
     },
   },
