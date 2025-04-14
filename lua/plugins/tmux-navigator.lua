@@ -1,3 +1,4 @@
+vim.g.tmux_navigator_no_mappings = 1
 return {
   "christoomey/vim-tmux-navigator",
   cmd = {
@@ -9,10 +10,9 @@ return {
     "TmuxNavigatorProcessList",
   },
   keys = {
-    { "<M-h>", "<cmd>TmuxNavigateLeft<cr>" },
-    { "<M-j>", "<cmd>TmuxNavigateDown<cr>" },
-    { "<M-k>", "<cmd>TmuxNavigateUp<cr>" },
-    { "<M-l>", "<cmd>TmuxNavigateRight<cr>" },
-    { "<M-\\>", "<cmd>TmuxNavigatePrevious<cr>" },
+    { "<M-Left>", "<cmd>TmuxNavigateLeft<cr>" },
+    { "<M-Down>", "<cmd>TmuxNavigateDown<cr>" },
+    { "<M-Up>", "<cmd>TmuxNavigateUp<cr>" },
+    { "<M-Right>", "<cmd>TmuxNavigateRight<cr>" },
   },
 }

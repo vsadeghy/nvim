@@ -1,4 +1,4 @@
-LazyFile = {
+local LazyFile = {
   "BufReadPost",
   "BufNewFile",
   "BufWritePre",

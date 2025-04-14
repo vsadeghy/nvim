@@ -15,9 +15,7 @@ return {
 
   version = "v0.*",
 
-  --- @type blink.cmp.Config
   opts = {
-    ---@type blink.cmp.KeymapConfig
     keymap = {
       ["<C-s>"] = { "show", "show_documentation", "hide_documentation" },
       ["<C-e>"] = { "hide" },

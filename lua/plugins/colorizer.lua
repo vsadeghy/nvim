@@ -1,6 +1,6 @@
 return {
   "catgoose/nvim-colorizer.lua",
-  event = "VeryLazy",
+  event = require "utils.lazyfile",
   opts = { -- set to setup table
     filetypes = { "css", "javascriptreact", "typescriptreact" },
     lazy_load = true,

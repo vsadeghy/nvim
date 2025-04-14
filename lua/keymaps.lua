@@ -58,6 +58,7 @@ map("n", "<S-tab>", "<cmd>bprev<cr>")
 map("n", "<leader>w", "<cmd>write<cr>", "Save Buffer")
 map("n", "<leader>W", "<cmd>noautocmd write<cr>", "Save Buffer no Format")
 map("n", "<leader>q", "<cmd>bdelete<cr>", "Quit Buffer")
+map("n", "<leader>Q", "<cmd>wall|%bdelete<cr><C-o><cmd>bdelete#<cr>", "Quit Other Buffers")
 map("n", "<leader>x", "<cmd>quit<cr>", "Quit Buffer")
 
 -- Comment

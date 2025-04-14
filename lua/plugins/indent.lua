@@ -2,8 +2,8 @@ return {
   "lukas-reineke/indent-blankline.nvim",
   main = "ibl",
   event = require "utils.lazyfile",
+  enabled = false,
   ---@module "ibl"
-  ---@type ibl.config
   opts = {
     indent = { char = "▏" },
     scope = {

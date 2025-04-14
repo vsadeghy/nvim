@@ -12,4 +12,5 @@ return {
       { "<leader>go", "<cmd>Neogit<cr>", desc = "Neogit" },
     },
   },
+  { "tpope/vim-abolish", opt = {} },
 }
