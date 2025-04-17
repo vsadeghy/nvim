@@ -7,7 +7,7 @@ local on_attach = function(client, bufnr)
       desc = "LSP: " .. desc
     end
 
-    vim.keymap.set("n", keys, func, { buffer = bufnr, desc = desc })
+    vim.keymap.set({ "n", "v" }, keys, func, { buffer = bufnr, desc = desc })
   end
 
   -- Supports

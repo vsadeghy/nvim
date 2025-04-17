@@ -7,8 +7,9 @@ local servers = {
   cssls = { fileypes = { "css" } },
   tailwindcss = { filetypes = { "css" } },
   jsonls = { filetypes = { "json", "jsonc", "json5" } },
+  bashls = {},
   -- nil_ls = { filetypes = { "nix" }, cmd = { "nil" } },
-  nixd = { filetypes = { "nix" }, cmd = { "nixd" } },
+  -- nixd = { filetypes = { "nix" }, cmd = { "nixd" } },
   -- pyright = {filetypes = {"python"}},
   marksman = { filetypes = { "markdown" } },
   lua_ls = {
@@ -90,6 +91,8 @@ return {
               callback = vim.lsp.buf.clear_references,
             })
 
+            on_attach(client, e.buf)
+
             vim.api.nvim_create_autocmd("LspDetach", {
               group = vim.api.nvim_create_augroup("lsp-detach", { clear = true }),
               callback = function(e2)
@@ -104,6 +107,8 @@ return {
               vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = e.buf })
             end, { buffer = e.buf, desc = "[T]oggle Inlay [H]ints" })
           end
+
+          vim.diagnostic.config { virtual_text = true }
         end,
       })
 
@@ -114,17 +119,18 @@ return {
       set(function()
         require("mason").setup()
         local ensure_installed = vim.tbl_keys(servers)
-        vim.list_extend(ensure_installed, {
-          "stylua",
-        })
+
         require("mason-tool-installer").setup {
-          ensure_installed = ensure_installed,
+          ensure_installed = { "stylua" },
         }
         require("mason-lspconfig").setup {
+          automatic_installation = false,
+          ensure_installed = ensure_installed,
           handlers = {
             function(server_name)
               local server = servers[server_name] or {}
               server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
+              -- server.on_attach = on_attach
               lspconfig[server_name].setup(server)
             end,
           },

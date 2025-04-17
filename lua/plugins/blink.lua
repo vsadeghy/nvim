@@ -3,6 +3,7 @@
 -- end
 
 local border = require("utils.border").border
+local set = require("utils.set")
 
 return {
   "saghen/blink.cmp",
@@ -105,7 +106,7 @@ return {
     fuzzy = {
       implementation = "prefer_rust_with_warning",
       prebuilt_binaries = {
-        download = false,
+        download = set(true, false),
       },
     },
 

@@ -40,6 +40,7 @@ local function biome_or_prettier(bufnr)
   return { "biome", "prettierd", "prettier", stop_after_first = true }
 end
 
+local lspfiles = vim.fn.stdpath "config" .. "/lua/plugins/lspfiles/"
 return {
   "stevearc/conform.nvim",
   event = { "BufWritePre" },
@@ -63,6 +64,8 @@ return {
       yaml = prettier,
       markdown = prettier,
       svelte = prettier,
+      bash = { "shfmt" },
+      sh = { "shfmt" },
       nix = { "alejandra" },
       lua = { "stylua" },
       rust = { "rustfmt" },
@@ -73,10 +76,13 @@ return {
         args = { "-i", "4" },
       },
       biome = {
-        append_args = { "--config-path", set("./lspfiles/biome.json", [[biome.json-path]]) },
+        append_args = { "--config-path", set(lspfiles .. "biome.json", [[biome.json-path]]) },
       },
       stylua = {
-        append_args = { "--config-path", set("./lspfiles/stylua.toml", [[stylua.toml-path]]) },
+        -- append_args = { "--config-path", set(lspfiles .. "stylua.toml", [[stylua.toml-path]]) },
+        append_args = function()
+          return { "--config-path", set(lspfiles .. "stylua.toml", [[stylua.toml-path]]) }
+        end,
       },
     },
   },

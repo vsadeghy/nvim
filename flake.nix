@@ -236,9 +236,6 @@
         # black
         # rustfmt
         # languagetool-rust
-
-        # Clipboard
-        wl-clipboard-rs
       ];
 
       # Environment variables set during neovim runtime.
