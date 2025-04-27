@@ -163,16 +163,22 @@ return {
       on_attach = function(client, bufnr)
         client.server_capabilities.documentFormattingProvider = false
         client.server_capabilities.documentRangeFormattingProvider = false
+        vim.api.nvim_create_autocmd("BufWritePost", {
+          desc = "Organize imports",
+          buffer = bufnr,
+          command = "TSToolsOrganizeImports",
+        })
         on_attach(client, bufnr)
       end,
       settings = {
-        expose_as_code_actions = "all",
-        -- expose_as_code_actions = {
-        --   "add_missing_imports",
-        --   "organize_imports",
-        --   "remove_unused_imports",
-        --   "remove_unused",
-        -- },
+        -- expose_as_code_actions = "all",
+        expose_as_code_actions = {
+          "add_missing_imports",
+          "organize_imports",
+          "remove_unused_imports",
+          "remove_unused",
+          "fix_all",
+        },
       },
     },
   },

@@ -61,7 +61,7 @@ return {
             -- Enabling this greatly increases the startup time on
             -- zig files
             -- https://github.com/nvim-treesitter/nvim-treesitter-textobjects/issues/461
-            enable = false,
+            enable = true,
 
             lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
             keymaps = {
@@ -95,12 +95,12 @@ return {
             },
           },
           swap = {
-            enable = false,
+            enable = true,
             swap_next = {
-              ["<leader>a"] = "@parameter.inner",
+              ["]s"] = "@parameter.inner",
             },
             swap_previous = {
-              ["<leader>A"] = "@parameter.inner",
+              ["[s"] = "@parameter.inner",
             },
           },
         },

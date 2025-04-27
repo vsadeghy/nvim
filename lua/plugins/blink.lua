@@ -3,7 +3,7 @@
 -- end
 
 local border = require("utils.border").border
-local set = require("utils.set")
+local set = require "utils.set"
 
 return {
   "saghen/blink.cmp",
@@ -15,15 +15,15 @@ return {
   },
 
   version = "v0.*",
-
   opts = {
     keymap = {
       ["<C-s>"] = { "show", "show_documentation", "hide_documentation" },
       ["<C-e>"] = { "hide" },
 
       ["<C-space>"] = { "select_and_accept" },
+      ["<down>"] = {},
 
-      ["<C-n>"] = {
+      ["<tab>"] = {
         function(cmp)
           -- If we cannot select next and we're in a snippet,
           -- then go forward in that snippet
@@ -39,7 +39,7 @@ return {
         end,
       },
 
-      ["<C-p>"] = {
+      ["<S-tab>"] = {
         function(cmp)
           -- If we cannot select prev item and we're in a snippet,
           -- then go backwards in that snippet
@@ -121,7 +121,7 @@ return {
 
     sources = {
       -- add lazydev to your completion providers
-      default = { "supermaven", "lazydev", "lsp", "path", "snippets", "buffer" },
+      default = { "lazydev", "lsp", "path", "snippets", "buffer" },
       providers = {
         lazydev = {
           name = "LazyDev",

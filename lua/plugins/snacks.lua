@@ -18,10 +18,12 @@ return {
       layout = {
         preset = "ivy_split",
       },
-      sources = { explorer = {
-        auto_close = true,
-        layout = { layout = { position = "right" } },
-      } },
+      sources = {
+        explorer = {
+          auto_close = true,
+          layout = { layout = { position = "right" } },
+        },
+      },
     },
     notifier = { enabled = true },
     quickfile = { enabled = true },
@@ -63,6 +65,7 @@ return {
     -- files
     { "<C-n>", function() Snacks.picker.explorer() end, desc = "Explorer"},
     { "<C-f>", function() Snacks.picker.smart() end, desc = "Smart Files"},
+    { "<leader>so", function() Snacks.picker() end, desc = "Open Picker"},
     { "<leader>sf", function() Snacks.picker.files() end, desc = "Files"},
     { "<leader>st", function() Snacks.picker.grep() end, desc = "Text"},
     { "<leader>sr", function() Snacks.picker.recent() end, desc = "Recent"},

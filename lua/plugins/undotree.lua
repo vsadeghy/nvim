@@ -9,6 +9,7 @@ return {
         vim.cmd.UndotreeToggle()
         vim.cmd.UndotreeFocus()
       end,
+      desc = "Undo Tree",
     },
   },
 }
