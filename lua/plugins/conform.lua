@@ -46,10 +46,16 @@ return {
   event = { "BufWritePre" },
   cmd = { "ConformInfo" },
   opts = {
-    format_on_save = {
-      timeout_ms = 500,
-      lsp_fallback = true,
-    },
+    format_on_save = function(bufnr)
+      if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
+        return
+      end
+      local disable_filetypes = { c = false, cpp = false }
+      return {
+        timeout_ms = 500,
+        lsp_fallback = not disable_filetypes[vim.bo[bufnr].filetype],
+      }
+    end,
     formatters_by_ft = {
       javascript = biome_or_prettier,
       typescript = biome_or_prettier,
@@ -59,7 +65,8 @@ return {
       css = biome_or_prettier,
       less = prettier,
       scss = prettier,
-      json = biome_or_prettier,
+      -- json = biome_or_prettier,
+      json = { "prettier" },
       jsonc = biome_or_prettier,
       yaml = prettier,
       markdown = prettier,

@@ -18,6 +18,6 @@ return {
     { "<leader>g?", "<cmd>Telescope git_status<cr>", desc = "Status" },
     { "<leader>gd", "<cmd>Gitsigns diffthis<cr>", desc = "diff" },
     { "<leader>gD", "<cmd>Gitsigns diffthis '~'<cr>", desc = "diff w/ Head" },
-    { "<leader>td", "<cmd>Gitsigns toggle_deleted<cr>", desc = "Toggle Deleted" },
+    { "<leader>tD", "<cmd>Gitsigns toggle_deleted<cr>", desc = "Deleted Hunks" },
   },
 }

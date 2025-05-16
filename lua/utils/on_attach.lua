@@ -2,12 +2,12 @@ local on_attach = function(client, bufnr)
   require("utils.border").update_border()
   local picker = require("snacks").picker
 
-  local nmap = function(keys, func, desc)
+  local nmap = function(keys, func, desc, mode)
     if desc then
       desc = "LSP: " .. desc
     end
 
-    vim.keymap.set({ "n", "v" }, keys, func, { buffer = bufnr, desc = desc })
+    vim.keymap.set(mode or { "n", "v" }, keys, func, { buffer = bufnr, desc = desc })
   end
 
   -- Supports
@@ -16,22 +16,20 @@ local on_attach = function(client, bufnr)
   end
 
   -- Conditional normal map
-  local cnmap = function(method, keys, func, desc)
+  local cnmap = function(method, keys, func, desc, mode)
     if supp(method) then
-      nmap(keys, func, desc)
+      nmap(keys, func, desc, mode)
     end
   end
 
-  cnmap("textDocument/hover", "K", vim.lsp.buf.hover, "Hover Docs")
+  cnmap("textDocument/hover", "K", vim.lsp.buf.hover, "Hover Docs", "n")
   cnmap("textDocument/definition", "gd", picker.lsp_definitions, "Definition")
   cnmap("textDocument/declaration", "gD", picker.lsp_declarations, "Declaration")
   cnmap("textDocument/implementation", "gI", picker.lsp_implementations, "Implementation")
   cnmap("textDocument/typeDefinition", "gt", picker.lsp_type_definitions, "Type Definition")
   cnmap("textDocument/references", "gr", picker.lsp_references, "References")
   cnmap("textDocument/rename", "<leader>lr", vim.lsp.buf.rename, "Rename")
-  cnmap("textDocument/publishDiagnostics", "<leader>ld", function()
-    vim.diagnostic.get(bufnr)
-  end, "Rename")
+  cnmap("textDocument/publishDiagnostics", "<leader>ld", vim.diagnostic.open_float, "Rename")
   cnmap("textDocument/codeAction", "<leader>la", vim.lsp.buf.code_action, "Code Action")
   cnmap("textDocument/documentSymbol", "<leader>ls", picker.lsp_symbols, "Document Symbols")
   cnmap("workspace/symbol", "<leader>lS", picker.lsp_workspace_symbols, "Workspace Symbols")

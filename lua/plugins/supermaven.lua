@@ -6,11 +6,11 @@ return {
     -- disable_keymaps = true,
     keymaps = {
       -- accept_suggestion = nil,
-      accept_suggestion = "<right>",
-      clear_suggestion = "<left>",
-      accept_word = "<down>",
+      accept_suggestion = "<C-right>",
+      clear_suggestion = "<C-left>",
+      accept_word = "<C-down>",
     },
-    ignore_filetypes = { "bigfile", "snacks_input", "snacks_notif", "gitcommit" },
+    ignore_filetypes = { "bigfile", "snacks_input", "snacks_notif", "gitcommit", "oil" },
     disable_inline_completion = false,
   },
 }

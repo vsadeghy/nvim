@@ -80,7 +80,11 @@ return {
     { "<leader>sc", function() Snacks.picker.commands() end, desc = "Commands"},
     { "<leader>sk", function() Snacks.picker.keymaps() end, desc = "Keymaps"},
     { "<leader>su", function() Snacks.picker.undo() end, desc = "Undo History"},
+    -- diagnostics
+    { "<leader>sd", function() Snacks.picker.diagnostics() end, desc = "Diagnostics"},
+    { "<leader>sD", function() Snacks.picker.diagnostics_buffer() end, desc = "Buffer Diagnostics"},
     -- others
+    { "<leader>;", function() Snacks.dashboard() end, desc = "Zen Zoom"},
     { "<leader>sn", function() Snacks.notifier.show_history() end, desc = "Notifications"},
     { "<leader>z", function() Snacks.zen.zoom() end, desc = "Zen Zoom"},
     { "<leader>Z", function() Snacks.zen.zen() end, desc = "Zen Mode"},
@@ -104,11 +108,62 @@ return {
           Snacks.debug.backtrace()
         end
         vim.print = _G.dd -- Override print to use snacks for `:=` command
-        Snacks.toggle.diagnostics():map "<leader>td"
+        Snacks.toggle.option("wrap", { name = "Wrap" }):map "<leader>tw"
+        Snacks.toggle.option("spell", { name = "󰓆 Spell Checking" }):map "<leader>ts"
+        Snacks.toggle.diagnostics({ notify = true }):map "<leader>td"
         Snacks.toggle.treesitter():map "<leader>tt"
-        Snacks.toggle.inlay_hints():map "<leader>th"
         Snacks.toggle.indent():map "<leader>tg"
-        Snacks.toggle.dim():map "<leader>tD"
+        Snacks.toggle.dim():map "<leader>tm"
+        Snacks.toggle
+          .new({
+            id = "format_on_save",
+            name = "󰊄 Format on Save (global)",
+            get = function()
+              return not vim.g.disable_autoformat
+            end,
+            set = function(state)
+              vim.g.disable_autoformat = not state
+            end,
+          })
+          :map "<leader>tf"
+        Snacks.toggle
+          .new({
+            id = "format_on_save_buffer",
+            name = "󰊄 Format on Save (buffer)",
+            get = function()
+              return not vim.b.disable_autoformat
+            end,
+            set = function(state)
+              vim.b.disable_autoformat = not state
+            end,
+          })
+          :map "<leader>tF"
+        Snacks.toggle
+          .new({
+            id = "lsp",
+            name = "LSP",
+            get = function()
+              return not vim.b.disable_lsp
+            end,
+            set = function(state)
+              vim.cmd(state and "LspStart" or "LspStop")
+              vim.b.disable_lsp = not state
+            end,
+          })
+          :map "<leader>tl"
+        Snacks.toggle
+          .new({
+            id = "inlay_hints",
+            name = "Inlay Hints",
+            get = function()
+              return not vim.b.disable_inlay_hints
+            end,
+            set = function(state)
+              vim.lsp.inlay_hint.enable(state)
+              vim.b.disable_inlay_hints = not state
+            end,
+          })
+          :map "<leader>th"
       end,
     })
   end,
