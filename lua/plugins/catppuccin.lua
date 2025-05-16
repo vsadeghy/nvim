@@ -1,7 +1,7 @@
 return {
   "catppuccin/nvim",
   name = "catppuccin",
-
+  lazy = true,
   opts = {
     flavour = "macchiato",
     transparent_background = true,
@@ -27,8 +27,4 @@ return {
       treesitter_context = true,
     },
   },
-  config = function(_, opts)
-    require("catppuccin").setup(opts)
-    vim.cmd.colorscheme "catppuccin"
-  end,
 }

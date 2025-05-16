@@ -102,12 +102,6 @@ return {
             })
           end
 
-          if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
-            vim.keymap.set("n", "<leader>th", function()
-              vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = e.buf })
-            end, { buffer = e.buf, desc = "[T]oggle Inlay [H]ints" })
-          end
-
           vim.diagnostic.config { virtual_text = true }
         end,
       })
@@ -124,6 +118,7 @@ return {
           ensure_installed = { "stylua" },
         }
         require("mason-lspconfig").setup {
+          automatic_enable = { exclude = { "rust_analyzer" } },
           automatic_installation = false,
           ensure_installed = ensure_installed,
           handlers = {
@@ -158,16 +153,19 @@ return {
   {
     "pmizio/typescript-tools.nvim",
     ft = { "javascript", "typescript", "javascriptreact", "typescriptreact" },
-    dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+    dependencies = {
+      "neovim/nvim-lspconfig",
+    },
     opts = {
       on_attach = function(client, bufnr)
         client.server_capabilities.documentFormattingProvider = false
         client.server_capabilities.documentRangeFormattingProvider = false
-        vim.api.nvim_create_autocmd("BufWritePost", {
-          desc = "Organize imports",
-          buffer = bufnr,
-          command = "TSToolsOrganizeImports",
-        })
+        vim.keymap.set(
+          "n",
+          "<leader>lo",
+          "<cmd>TSToolsOrganizeImports<cr>",
+          { buffer = bufnr, desc = "Organize imports" }
+        )
         on_attach(client, bufnr)
       end,
       settings = {

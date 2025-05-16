@@ -1,10 +1,12 @@
 local set = require "utils.set"
+local Lazyfile = require "utils.lazyfile"
 return {
   { "LnL7/vim-nix", ft = "nix", enabled = set(false, true) },
+  { "nvim-lua/plenary.nvim", lazy = true },
+  { "nvim-tree/nvim-web-devicons", lazy = true },
   {
     "NeogitOrg/neogit",
     dependencies = {
-      "nvim-lua/plenary.nvim",
       "sindrets/diffview.nvim",
       "nvim-telescope/telescope.nvim",
     },
@@ -12,5 +14,5 @@ return {
       { "<leader>go", "<cmd>Neogit<cr>", desc = "Neogit" },
     },
   },
-  { "tpope/vim-abolish", opt = {} },
+  { "tpope/vim-abolish", opt = {}, event = Lazyfile },
 }

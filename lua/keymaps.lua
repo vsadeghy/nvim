@@ -1,5 +1,5 @@
 vim.g.mapleader = " "
-vim.g.maplocalleader = " "
+vim.g.maplocalleader = "\\"
 
 local map = function(mode, key, func, desc, opts)
   local options = { silent = true }
@@ -38,10 +38,10 @@ map("n", "'", "`")
 --
 map("n", "<leader>o", 'o<Esc>0"_D', "Better New Line")
 map("n", "<leader>O", 'O<Esc>0"_D', "Better New Line")
-map("v", "p", '"_dp')
+map("v", "p", '"_dP')
 
 -- Better deleting
-map("n", "<leader>d", '0"_D')
+map("n", "<leader>d", '0"_D', "Better Delete Line")
 map("n", "x", '"_x')
 
 -- Better leaving things
@@ -57,7 +57,7 @@ map("n", "<tab>", "<cmd>bnext<cr>")
 map("n", "<S-tab>", "<cmd>bprev<cr>")
 map("n", "<leader>w", "<cmd>write<cr>", "Save Buffer")
 map("n", "<leader>W", "<cmd>noautocmd write<cr>", "Save Buffer no Format")
-map("n", "<leader>q", "<cmd>bdelete<cr>", "Quit Buffer")
+map("n", "<leader>qu", "<cmd>bdelete<cr>", "Quit Buffer")
 map("n", "<leader>Q", "<cmd>wall|%bdelete<cr><C-o><cmd>bdelete#<cr>", "Quit Other Buffers")
 map("n", "<leader>x", "<cmd>quit<cr>", "Quit Buffer")
 

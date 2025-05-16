@@ -1,6 +1,6 @@
 return {
   "m4xshen/autoclose.nvim",
-  event = "InsertEnter",
+  event = require "utils.lazyfile",
   opts = {
     keys = {
       ["("] = { escape = false, close = true, pair = "()" },
