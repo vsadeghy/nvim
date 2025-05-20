@@ -3,6 +3,9 @@ return {
     "ggandor/leap.nvim",
     event = require "utils.lazyfile",
     dependencies = "tpope/vim-repeat",
+    enabled = function()
+      return vim.bo.filetype ~= "undotree"
+    end,
     config = function()
       local action = require("leap.remote").action
       local remote_text = function(prefix)

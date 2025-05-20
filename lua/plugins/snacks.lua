@@ -60,7 +60,7 @@ return {
   keys = {
     --stylua: ignore start
     -- files
-    { "<C-n>", function() Snacks.picker.explorer() end, desc = "Explorer"},
+    -- { "<C-n>", function() Snacks.picker.explorer() end, desc = "Explorer"},
     { "<C-f>", function() Snacks.picker.smart() end, desc = "Smart Files"},
     { "<leader>so", function() Snacks.picker() end, desc = "Open Picker"},
     { "<leader>sf", function() Snacks.picker.files() end, desc = "Files"},
@@ -80,6 +80,10 @@ return {
     -- diagnostics
     { "<leader>sd", function() Snacks.picker.diagnostics() end, desc = "Diagnostics"},
     { "<leader>sD", function() Snacks.picker.diagnostics_buffer() end, desc = "Buffer Diagnostics"},
+    -- git
+    { "<leader>gc", "<cmd>Telescope git_commits<cr>", desc = "Commits" },
+    { "<leader>gC", function() Snacks.picker.git_branches() end, desc = "Branch Commits" },
+    { "<leader>g?", function() Snacks.picker.git_branches() end, desc = "Status" },
     -- others
     { "<leader>;", function() Snacks.dashboard() end, desc = "Zen Zoom"},
     { "<leader>sn", function() Snacks.notifier.show_history() end, desc = "Notifications"},
