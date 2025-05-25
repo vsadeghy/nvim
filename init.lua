@@ -10,4 +10,4 @@ require("lazy").setup("plugins", {
   install = { colorscheme = { "catppuccin" } },
 })
 
-vim.cmd.colorscheme "catppuccin"
+require "post"
