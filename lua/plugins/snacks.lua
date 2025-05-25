@@ -64,16 +64,17 @@ return {
     { "<C-f>", function() Snacks.picker.smart() end, desc = "Smart Files"},
     { "<leader>so", function() Snacks.picker() end, desc = "Open Picker"},
     { "<leader>sf", function() Snacks.picker.files() end, desc = "Files"},
-    { "<leader>st", function() Snacks.picker.grep() end, desc = "Text"},
+    { "<leader>sg", function() Snacks.picker.grep() end, desc = "Grep"},
     { "<leader>sr", function() Snacks.picker.recent() end, desc = "Recent"},
     { "<leader>sp", function() Snacks.picker.projects() end, desc = "Projects"},
+    { "<leader>sb", function() Snacks.picker.buffers() end, desc = "Buffers"},
     { "<leader>lR", function() Snacks.rename.rename_file() end, desc = "Rename File"},
     -- text
-    { "<leader>sT", function() Snacks.picker.grep_buffers() end, desc = "Text in Buffers"},
+    { "<leader>st", function() Snacks.picker.grep_buffers() end, desc = "Text under cursor in Buffers"},
     { "<leader>sw", function() Snacks.picker.grep_word() end, desc = "Word", mode = {"n", "x"}},
     -- vim
-    { "<leader>sh", function() Snacks.picker.command_history() end, desc = "Command History"},
-    { "<leader>sH", function() Snacks.picker.help() end, desc = "Help Pages"},
+    { "<leader>sh", function() Snacks.picker.help() end, desc = "Help Pages"},
+    { "<leader>sH", function() Snacks.picker.command_history() end, desc = "Command History"},
     { "<leader>sc", function() Snacks.picker.commands() end, desc = "Commands"},
     { "<leader>sk", function() Snacks.picker.keymaps() end, desc = "Keymaps"},
     { "<leader>su", function() Snacks.picker.undo() end, desc = "Undo History"},
@@ -85,7 +86,7 @@ return {
     { "<leader>gC", function() Snacks.picker.git_branches() end, desc = "Branch Commits" },
     { "<leader>g?", function() Snacks.picker.git_branches() end, desc = "Status" },
     -- others
-    { "<leader>;", function() Snacks.dashboard() end, desc = "Zen Zoom"},
+    { "<leader>;", function() Snacks.dashboard() end, desc = "Dashboard"},
     { "<leader>sn", function() Snacks.notifier.show_history() end, desc = "Notifications"},
     { "<leader>z", function() Snacks.zen.zoom() end, desc = "Zen Zoom"},
     { "<leader>Z", function() Snacks.zen.zen() end, desc = "Zen Mode"},
@@ -98,6 +99,9 @@ return {
     --stylua: ignore end
   },
   init = function()
+    vim.api.nvim_create_user_command("Tree", function()
+      Snacks.picker.explorer()
+    end, {})
     vim.api.nvim_create_autocmd("User", {
       pattern = "VeryLazy",
       callback = function()

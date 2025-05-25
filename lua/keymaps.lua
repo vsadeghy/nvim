@@ -1,5 +1,5 @@
 vim.g.mapleader = " "
-vim.g.maplocalleader = "\\"
+vim.g.maplocalleader = ","
 
 local map = function(mode, key, func, desc, opts)
   local options = { silent = true }
@@ -15,6 +15,8 @@ map({ "n", "v" }, "<space>", "<nop>")
 -- Better movement
 map({ "n", "v" }, "j", "v:count == 0 ? 'gj' : 'j'", _, { expr = true })
 map({ "n", "v" }, "k", "v:count == 0 ? 'gk' : 'k'", _, { expr = true })
+map({ "n", "v" }, "<down>", "v:count == 0 ? 'gj' : 'j'", _, { expr = true })
+map({ "n", "v" }, "<up>", "v:count == 0 ? 'gk' : 'k'", _, { expr = true })
 map("v", ">", ">gv")
 map("v", "<", "<gv")
 map("", "H", "^")
@@ -27,6 +29,8 @@ map("v", "K", ":m '<-2<cr>gv=gv")
 -- Center after jump
 map({ "n", "v" }, "<C-d>", "<C-d>zz")
 map({ "n", "v" }, "<C-u>", "<C-u>zz")
+map({ "n", "v" }, "<PageDown>", "<C-d>zz")
+map({ "n", "v" }, "<PageUp>", "<C-u>zz")
 map("n", "n", "nzz")
 map("n", "N", "Nzz")
 map("n", "<C-o>", "<C-o>zz")
@@ -35,13 +39,10 @@ map("n", "<C-i>", "<C-i>zz")
 map("n", "'", "`")
 
 -- Better Inserting
---
-map("n", "<leader>o", 'o<Esc>0"_D', "Better New Line")
-map("n", "<leader>O", 'O<Esc>0"_D', "Better New Line")
 map("v", "p", '"_dP')
 
 -- Better deleting
-map("n", "<leader>d", '0"_D', "Better Delete Line")
+map({ "n", "v" }, "<leader>d", '0"_D', "Better Delete Line")
 map("n", "x", '"_x')
 
 -- Better leaving things
@@ -57,7 +58,7 @@ map("n", "<tab>", "<cmd>bnext<cr>")
 map("n", "<S-tab>", "<cmd>bprev<cr>")
 map("n", "<leader>w", "<cmd>write<cr>", "Save Buffer")
 map("n", "<leader>W", "<cmd>noautocmd write<cr>", "Save Buffer no Format")
-map("n", "<leader>qu", "<cmd>bdelete<cr>", "Quit Buffer")
+map("n", "<leader>q", "<cmd>bdelete<cr>", "Quit Buffer")
 map("n", "<leader>Q", "<cmd>wall|%bdelete<cr><C-o><cmd>bdelete#<cr>", "Quit Other Buffers")
 map("n", "<leader>x", "<cmd>quit<cr>", "Quit Buffer")
 

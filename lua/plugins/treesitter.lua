@@ -25,7 +25,7 @@ return {
           }):map "<leader>tc"
           vim.keymap.set("n", "[c", function()
             tsc.go_to_context(vim.v.count1)
-          end, { silent = true })
+          end, { desc = "Previous Context", silent = true })
         end,
       },
     },

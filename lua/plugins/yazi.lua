@@ -2,6 +2,7 @@ return {
   "mikavilpas/yazi.nvim",
   opts = {},
   keys = {
-    { "<C-n>", "<cmd>Yazi<cr>", desc = "Yazi" },
+    { "<C-n>", "<cmd>Yazi toggle<cr>", desc = "Yazi" },
+    { "<C-y>", "<cmd>Yazi<cr>", desc = "Yazi" },
   },
 }

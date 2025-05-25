@@ -16,13 +16,33 @@ return {
         action { input = prefix .. ch }
       end
 
+      vim.keymap.set({ "n", "x", "o" }, "S", function()
+        require("leap.remote").action()
+      end, { desc = "Stealth" })
       --stylua: ignore start
-      vim.keymap.set({ "n", "x", "o" }, "s", "<Plug>(leap-forward)", { desc = "Leap Forwards" })
-      vim.keymap.set({ "n", "x", "o" }, "S", "<Plug>(leap-backward)", { desc = "Leap Backwards" })
-      vim.keymap.set({ "n", "x", "o" }, "gs", function() action() end, { desc = "Go Stealth" })
+      vim.keymap.set("n", "s", "<Plug>(leap-anywhere)")
+      vim.keymap.set({"x", "o"}, "s", "<Plug>(leap)")
       vim.keymap.set({ "x", "o" }, "ar", function() remote_text "a" end, { desc = "remote" })
       vim.keymap.set({ "x", "o" }, "ir", function() remote_text "i" end, { desc = "remote" })
       --stylua: ignore end
+
+      -- "clever-R"
+      vim.keymap.set({ "n", "x", "o" }, "R", function()
+        local leap_opts = require("leap").opts
+        local sk = vim.deepcopy(leap_opts.special_keys)
+        sk.next_target = vim.fn.flatten(vim.list_extend({ "R" }, { sk.next_target }))
+        sk.prev_target = vim.fn.flatten(vim.list_extend({ "r" }, { sk.prev_target }))
+        -- Remove these temporary traversal keys from `safe_labels`.
+        local sl = {}
+        for _, label in ipairs(vim.deepcopy(leap_opts.safe_labels)) do
+          if label ~= "R" and label ~= "r" then
+            table.insert(sl, label)
+          end
+        end
+        require("leap.treesitter").select {
+          opts = { special_keys = sk, safe_labels = sl },
+        }
+      end)
 
       vim.api.nvim_set_hl(0, "LeapBackdrop", { link = "Comment" })
     end,

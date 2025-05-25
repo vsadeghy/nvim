@@ -1,5 +1,4 @@
 local set = require "utils.set"
-local Lazyfile = require "utils.lazyfile"
 return {
   { "LnL7/vim-nix", ft = "nix", enabled = set(false, true) },
   { "nvim-lua/plenary.nvim", lazy = true },
@@ -14,5 +13,5 @@ return {
       { "<leader>go", "<cmd>Neogit<cr>", desc = "Neogit" },
     },
   },
-  { "tpope/vim-abolish", opt = {}, event = Lazyfile },
+  { "tpope/vim-abolish", opt = {}, event = "CmdlineEnter" },
 }
