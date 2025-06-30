@@ -83,7 +83,7 @@ return {
         args = { "-i", "4" },
       },
       biome = {
-        append_args = { "--config-path", set(lspfiles .. "biome.json", [[biome.json-path]]) },
+        append_args = { "--config-path", set(lspfiles .. "biome.jsonc", [[biome.json-path]]) },
       },
       stylua = {
         -- append_args = { "--config-path", set(lspfiles .. "stylua.toml", [[stylua.toml-path]]) },

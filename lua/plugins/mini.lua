@@ -3,17 +3,19 @@ return {
   {
     "echasnovski/mini.surround",
     version = "*",
-    event = require "utils.lazyfile",
     opts = {
       mappings = {
-        add = "gsa",
-        delete = "gsd",
-        find = "gsf",
-        find_left = "gsF",
-        highlight = "gsh",
-        replace = "gsr",
-        update_n_lines = "gsn",
+        add = "Sa",
+        delete = "Sd",
+        find = "Sf",
+        find_left = "SF",
+        highlight = "Sh",
+        replace = "Sc",
+        update_n_lines = "Sn",
       },
     },
+    init = function()
+      vim.keymap.set({ "n", "x" }, "s", "<nop>")
+    end,
   },
 }

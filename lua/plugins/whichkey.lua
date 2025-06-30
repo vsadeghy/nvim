@@ -5,6 +5,7 @@ return {
   opts = {
     preset = "helix",
     spec = {
+      { "s", group = "surround", mode = { "n", "v" } },
       { "<leader>g", group = "Git", mode = { "n", "v" } },
       { "<leader>l", group = "LSP", mode = { "n", "v" } },
       { "<leader>s", group = "Search", mode = { "n", "v" } },

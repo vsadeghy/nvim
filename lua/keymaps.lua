@@ -49,6 +49,7 @@ map("n", "x", '"_x')
 map("i", "jk", "<Esc>")
 map("i", "kj", "<Esc>")
 
+map("n", "gl", "<C-^>", "alternate file")
 -- Quick Fix
 -- map("n", "<C-j>", "<cmd>cnext<cr>")
 -- map("n", "<C-k>", "<cmd>cprev<cr>")

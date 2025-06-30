@@ -16,7 +16,7 @@ return {
         action { input = prefix .. ch }
       end
 
-      vim.keymap.set({ "n", "x", "o" }, "S", function()
+      vim.keymap.set({ "n", "x", "o" }, "gs", function()
         require("leap.remote").action()
       end, { desc = "Stealth" })
       --stylua: ignore start
