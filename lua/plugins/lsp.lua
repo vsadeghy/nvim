@@ -4,10 +4,36 @@ local set = require "utils.set"
 local servers = {
   -- ts_ls = { filetypes = { "javascript", "typescript", "javascriptreact", "typescriptreact" } },
   html = { filetypes = { "html" } },
-  cssls = { fileypes = { "css" } },
+  cssls = { filetypes = { "css" } },
   tailwindcss = { filetypes = { "css" } },
-  jsonls = { filetypes = { "json", "jsonc", "json5" } },
-  bashls = {},
+  jsonls = {
+    filetypes = { "json", "jsonc", "json5" },
+    settings = {
+      json = {
+        schemas = function()
+          return require("schemastore").json.schemas()
+        end,
+        validate = { enable = true },
+      },
+    },
+  },
+  yamlls = {
+    filetypes = { "yaml" },
+    settings = {
+      yaml = {
+        schemaStore = {
+          enable = false,
+          url = "",
+        },
+        -- schemas = function()
+        --   return require("schemastore").yaml.schemas()
+        -- end,
+        validate = true,
+      },
+    },
+  },
+  taplo = { filetypes = { "toml" } },
+  bashls = { filetypes = { "bash", "zsh" } },
   -- nil_ls = { filetypes = { "nix" }, cmd = { "nil" } },
   -- nixd = { filetypes = { "nix" }, cmd = { "nixd" } },
   -- pyright = {filetypes = {"python"}},
@@ -41,6 +67,13 @@ local servers = {
     },
   },
 }
+local ft = {}
+for _, opts in pairs(servers) do
+  for _, filetype in ipairs(opts.filetypes or {}) do
+    table.insert(ft, filetype)
+  end
+end
+
 return {
   {
     "neovim/nvim-lspconfig",
@@ -48,6 +81,7 @@ return {
       "folke/lazydev.nvim",
       "j-hui/fidget.nvim",
       "saghen/blink.cmp",
+      "b0o/schemastore.nvim",
       {
         "williamboman/mason.nvim",
         enabled = set(true, false),
@@ -62,16 +96,7 @@ return {
         enabled = set(true, false),
       },
     },
-    ft = {
-      "lua",
-      "markdown",
-      "nix",
-      "python",
-      "html",
-      "css",
-      "javascript",
-      "typescript",
-    },
+    ft = ft,
     config = function()
       vim.api.nvim_create_autocmd("LspAttach", {
         group = vim.api.nvim_create_augroup("lsp-attach", { clear = true }),
@@ -115,7 +140,7 @@ return {
         local ensure_installed = vim.tbl_keys(servers)
 
         require("mason-tool-installer").setup {
-          ensure_installed = { "stylua" },
+          ensure_installed = { "stylua", "js-debug-adapter" },
         }
         require("mason-lspconfig").setup {
           automatic_enable = { exclude = { "rust_analyzer" } },
@@ -148,6 +173,7 @@ return {
           -- })
         end
       end)()
+      vim.opt.formatoptions:remove { "c", "r", "o" }
     end,
   },
   {
