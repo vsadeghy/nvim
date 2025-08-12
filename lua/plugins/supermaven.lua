@@ -1,7 +1,8 @@
 return {
   "supermaven-inc/supermaven-nvim",
+  -- enabled = false,
   event = "InsertEnter",
-  depenancies = "saghen/blink.cmp",
+  -- depenancies = "saghen/blink.cmp",
   opts = {
     -- disable_keymaps = true,
     keymaps = {

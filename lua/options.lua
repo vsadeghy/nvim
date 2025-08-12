@@ -39,6 +39,7 @@ vim.opt.completeopt = "menuone,noselect" -- Set completeopt to have a better com
 vim.opt.termguicolors = true -- Set termguicolors to enable highlight groups (default: false)
 vim.opt.list = true
 vim.opt.hidden = true
+vim.opt.termbidi = true
 
 -- vim.opt.shortmess:append "c" -- Don't give |ins-completion-menu| messages (default: does not include 'c')
 vim.opt.iskeyword:remove "_" -- So when using 'w' and such stops at _ and doesn't go over it
@@ -75,3 +76,4 @@ vim.opt.listchars:append {
 --     end
 --     inlay_hint_handler(err, result, ctx, config)
 -- end
+--

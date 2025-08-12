@@ -7,8 +7,8 @@ return {
     -- or leave it empty to use the default settings
     -- refer to the configuration section below
     bigfile = { enabled = true },
-    dashboard = { enabled = true },
-    explorer = { enabled = true },
+    -- dashboard = { enabled = true },
+    -- explorer = { enabled = true },
     indent = { enabled = true },
     input = { enabled = true },
     picker = {
@@ -86,7 +86,7 @@ return {
     { "<leader>gC", function() Snacks.picker.git_branches() end, desc = "Branch Commits" },
     { "<leader>g?", function() Snacks.picker.git_branches() end, desc = "Status" },
     -- others
-    { "<leader>;", function() Snacks.dashboard() end, desc = "Dashboard"},
+    -- { "<leader>;", function() Snacks.dashboard() end, desc = "Dashboard"},
     { "<leader>sn", function() Snacks.notifier.show_history() end, desc = "Notifications"},
     { "<leader>z", function() Snacks.zen.zoom() end, desc = "Zen Zoom"},
     { "<leader>Z", function() Snacks.zen.zen() end, desc = "Zen Mode"},
@@ -94,8 +94,8 @@ return {
     { "<leader>S", function() Snacks.scratch.select() end, desc = "Scratch Select"},
     { "<C-/>", function() Snacks.terminal() end, desc = "Terminal"},
     { "<c-_>",  function() Snacks.terminal() end, desc = "which_key_ignore" },
-    { "]]", function() Snacks.words.jump(vim.v.count1) end, desc = "Next Reference", mode = { "n", "t" } },
-    { "[[", function() Snacks.words.jump(-vim.v.count1) end, desc = "Prev Reference", mode = { "n", "t" } },
+    -- { "]]", function() Snacks.words.jump(vim.v.count1) end, desc = "Next Reference", mode = { "n", "t" } },
+    -- { "[[", function() Snacks.words.jump(-vim.v.count1) end, desc = "Prev Reference", mode = { "n", "t" } },
     --stylua: ignore end
   },
   init = function()
