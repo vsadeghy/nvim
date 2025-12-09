@@ -71,6 +71,7 @@ return {
       yaml = prettier,
       markdown = prettier,
       svelte = prettier,
+      python = { "ruff_format" },
       bash = { "shfmt" },
       sh = { "shfmt" },
       nix = { "alejandra" },

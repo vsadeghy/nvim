@@ -1,7 +1,7 @@
 return {
   "mfussenegger/nvim-dap",
   dependencies = {
-    -- { "rcarriga/nvim-dap-ui", dependencies = "nvim-neotest/nvim-nio" },
+    { "rcarriga/nvim-dap-ui", dependencies = "nvim-neotest/nvim-nio" },
     "igorlfs/nvim-dap-view",
     "theHamsta/nvim-dap-virtual-text",
     "Weissle/persistent-breakpoints.nvim",
@@ -74,11 +74,13 @@ return {
     local vt = require "nvim-dap-virtual-text"
     local bp = require "persistent-breakpoints.api"
     vt.setup {}
-    ui.setup { windows = { terminal = { hide = {} } } }
-    require("persistent-breakpoints").setup {
-      load_breakpoints_event = { "BufReadPost" },
+    ui.setup {
+      windows = { position = "right", terminal = { start_hidden = true } },
+      winbar = {
+        sections = { "watches", "repl", "scopes", "breakpoints", "exceptions", "threads" },
+        default_section = "repl",
+      },
     }
-
     local map = function(mode, key, func, desc, opts)
       local options = { silent = true }
       if desc then
@@ -90,33 +92,15 @@ return {
 
     map("n", "<leader>d", "<nop>")
     map("n", "<leader>db", bp.toggle_breakpoint, "breakpoint")
-    map("n", "<leader>dB", bp.set_conditional_breakpoint, "breakpoint")
+    map("n", "<leader>dB", bp.set_conditional_breakpoint, "conditional breakpoint")
     map("n", "<leader>dc", bp.clear_all_breakpoints, "clear breakpoints")
-    map("n", "<leader>dc", bp.set_log_point, "clear breakpoints")
-    map("n", "<leader>d.", dap.run_to_cursor, "run to cursor")
-    map("n", "<leader>da", function()
-      if vim.fn.filereadable ".vscode/launch.json" then
-        local vscode = require "dap.ext.vscode"
-        vscode.load_launchjs(nil, {
-          ["pwa-node"] = languages,
-          ["pwa-chrome"] = languages,
-          ["node"] = languages,
-          ["chrome"] = languages,
-        })
-        dap.continue()
-      end
-    end, "run with args")
-
-    -- Eval var under cursor
-    -- map("n", "<leader>dk", function()
-    --   ui.eval(nil, { enter = true })
-    -- end, "eval var under cursor")
+    map("n", "<leader>dl", bp.set_log_point, "log point breakpoints")
 
     map("n", "<leader>ds", dap.continue, "continue")
+    map("n", "<leader>d.", dap.run_to_cursor, "run to cursor")
     map("n", "<leader>di", dap.step_into, "step into")
     map("n", "<leader>do", dap.step_over, "step over")
     map("n", "<leader>dO", dap.step_out, "step out")
-    map("n", "<leader>dB", dap.step_back, "step back")
     map("n", "<leader>dt", ui.toggle, "toggle ui")
     map("n", "<leader>dv", vt.toggle, "toggle virtual text")
     map("n", "<leader>dr", dap.restart, "restart")
@@ -127,5 +111,4 @@ return {
     dap.listeners.before.event_terminated.dapui_config = ui.close
     dap.listeners.before.event_exited.dapui_config = ui.close
   end,
-  -- keys = { { "<leader>db" }, { "<leader>ds" } },
 }

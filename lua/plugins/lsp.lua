@@ -36,8 +36,10 @@ local servers = {
   bashls = { filetypes = { "bash", "zsh" } },
   -- nil_ls = { filetypes = { "nix" }, cmd = { "nil" } },
   -- nixd = { filetypes = { "nix" }, cmd = { "nixd" } },
-  -- pyright = {filetypes = {"python"}},
+  pyright = { filetypes = { "python" } },
   marksman = { filetypes = { "markdown" } },
+  docker_language_server = { filetypes = { "dockerfile", "yaml.docker-compose" } },
+  tinymist = { filetypes = { "typst" } },
   lua_ls = {
     filetypes = { "lua" },
     cmd = { "lua-language-server" },

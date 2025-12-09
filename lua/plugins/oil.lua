@@ -9,7 +9,7 @@ return {
     view_options = {
       show_hidden = false,
       is_hidden_file = function(name, bufnr)
-        local show = { ".env", ".gitignore", "prettier" }
+        local show = { ".env", ".%ignore", "prettier" }
         local hide = { "^%.", "node_modules", "lock" }
         for _, v in ipairs(show) do
           if name:match(v) then

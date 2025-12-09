@@ -4,6 +4,9 @@ vim.g.maplocalleader = ","
 
 local _ = nil
 
+map({ "i", "" }, "<FIND>", "<HOME>")
+map({ "i", "" }, "<Select>", "<END>")
+
 map({ "n", "v" }, "<space>", "<nop>")
 -- Better movement
 map({ "n", "v" }, "j", "v:count == 0 ? 'gj' : 'j'", _, { expr = true })
