@@ -119,10 +119,12 @@ vim.pack.add {
 	{ src = "https://github.com/saghen/blink.cmp", version = "v1.7.0" },
 	"https://github.com/nvim-tree/nvim-tree.lua",
 }
+vim.cmd "colorscheme catppuccin-macchiato"
 for _, pack in ipairs { "mini.surround", "refactoring", "oil", "fzf-lua", "nvim-tree" } do
 	require(pack).setup()
 end
-vim.cmd "colorscheme catppuccin-macchiato"
+require "debugger"
+
 require("which-key").setup { preset = "helix" }
 map("n", "<leader>o", c "NvimTreeOpen", "nvim tree")
 
@@ -184,5 +186,3 @@ ft(tsfiles):fmt(prettier):append(biome)
 ft("yaml,json,jsonc"):fmt(prettier)
 ft("python"):fmt "ruff"
 ft("lua"):fmt "stylua"
-
-require "debugger"
