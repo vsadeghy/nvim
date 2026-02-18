@@ -50,6 +50,10 @@
       "rev": "fbdb48c",
       "src": "https://github.com/theHamsta/nvim-dap-virtual-text"
     },
+    "nvim-tree.lua": {
+      "rev": "b8b44b6a2494d086a9177251a119f9daec6cace8",
+      "src": "https://github.com/nvim-tree/nvim-tree.lua"
+    },
     "nvim-treesitter": {
       "rev": "d97d226c",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter",
@@ -74,15 +78,6 @@
     "supermaven-nvim": {
       "rev": "07d20fc",
       "src": "https://github.com/supermaven-inc/supermaven-nvim"
-    },
-    "telescope-ui-select.nvim": {
-      "rev": "6e51d7d",
-      "src": "https://github.com/nvim-telescope/telescope-ui-select.nvim"
-    },
-    "telescope.nvim": {
-      "rev": "a0bbec2",
-      "src": "https://github.com/nvim-telescope/telescope.nvim",
-      "version": "'v0.1.9'"
     },
     "typst-preview.nvim": {
       "rev": "64469f8",

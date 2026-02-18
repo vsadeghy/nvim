@@ -111,20 +111,20 @@ vim.pack.add {
 	{ src = "https://github.com/nvim-treesitter/nvim-treesitter", version = "main" },
 	"https://github.com/nvim-mini/mini.surround",
 	"https://github.com/nvim-lua/plenary.nvim",
-	{ src = "https://github.com/nvim-telescope/telescope.nvim", version = "v0.1.9" },
-	"https://github.com/nvim-telescope/telescope-ui-select.nvim",
 	"https://github.com/ibhagwan/fzf-lua",
 	"https://github.com/thePrimeagen/refactoring.nvim",
 	"https://github.com/nvimdev/guard.nvim",
 	"https://github.com/nvimdev/guard-collection",
 	"https://github.com/chomosuke/typst-preview.nvim",
 	{ src = "https://github.com/saghen/blink.cmp", version = "v1.7.0" },
+	"https://github.com/nvim-tree/nvim-tree.lua",
 }
-for _, pack in ipairs { "mini.surround", "refactoring", "oil", "fzf-lua" } do
+for _, pack in ipairs { "mini.surround", "refactoring", "oil", "fzf-lua", "nvim-tree" } do
 	require(pack).setup()
 end
 vim.cmd "colorscheme catppuccin-macchiato"
 require("which-key").setup { preset = "helix" }
+map("n", "<leader>o", c "NvimTreeOpen", "nvim tree")
 
 --lsp
 -- https://github.com/neovim/nvim-lspconfig/tree/master/lsp
@@ -155,11 +155,6 @@ map("x", "<leader>rB", r "extract_block_to_file", "extract block to file")
 map("n", "<C-t>", "<nop>", "toggle")
 map("n", "<C-t>h", function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()) end, "toggle hints")
 
---telescope
-require("telescope").setup {
-	defaults = { preview = { treesitter = false }, path_display = { "smart" } },
-	extensions = { ["ui-select"] = { require("telescope.themes").get_dropdown {} } },
-}
 map("n", "<C-f>", FzfLua.files, "files")
 map("n", "<leader>f", FzfLua.oldfiles, "recent files")
 map("n", "<C-h>", FzfLua.helptags, "Help")
