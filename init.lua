@@ -43,7 +43,8 @@ map("", "<RightMouse>", "<nop>")
 map("n", "<leader>w", c "w", "write")
 map("n", "<leader>W", c "noautocmd w", "write nofmt")
 map("n", "<leader>q", c "bd", "close")
-map("n", "<leader>v", c "e ~/.config/nvim/init.lua", "nvim config")
+map("n", "<leader>x", c "q", "quit")
+map("n", "<leader>v", c("e " .. vim.fn.stdpath "config" .. "/init.lua"), "nvim config")
 map("n", "<tab>", c "bn", "next buffer")
 map("n", "<S-tab>", c "bp", "previous buffer")
 map("n", "n", "nzzzv", "next search")
@@ -77,8 +78,15 @@ map({ "", "!", "t" }, "<M-Left>", move_pane("h", "-L"))
 map({ "", "!", "t" }, "<M-Right>", move_pane("l", "-R"))
 
 --autocmds
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = "man",
+	callback = function()
+		map("n", "d", "<C-d>", { nowait = true })
+		map("n", "u", "<C-u>", { nowait = true })
+	end,
+})
 vim.api.nvim_create_autocmd("TermOpen", { command = "startinsert" })
-vim.api.nvim_create_autocmd("BufReadPost", { command = 'norm `"zz' })
+vim.api.nvim_create_autocmd("BufReadPost", { command = 'norm! `"zz' })
 vim.api.nvim_create_autocmd("TextYankPost", {
 	callback = function() vim.highlight.on_yank { timeout = 150 } end,
 })
@@ -100,6 +108,7 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 	end,
 })
 
+if vim.version().minor < 12 then return end
 --plugins
 vim.pack.add {
 	"https://github.com/catppuccin/nvim",
@@ -130,7 +139,7 @@ map("n", "<leader>o", c "NvimTreeOpen", "nvim tree")
 
 --lsp
 -- https://github.com/neovim/nvim-lspconfig/tree/master/lsp
-vim.lsp.enable { "lua_ls", "ts_ls", "jsonls", "eslint", "pyright", "tinymist", "bashls", "taplo", "gh_actions_ls", "hls" }
+vim.lsp.enable { "lua_ls", "ts_ls", "jsonls", "pyright", "tinymist", "bashls", "taplo", "gh_actions_ls", "hls" }
 vim.diagnostic.config { virtual_text = true }
 require("blink.cmp").setup { keymap = { ["<C-n>"] = false, ["<C-p>"] = false } }
 require("supermaven-nvim").setup { ignore_filetypes = { "bigfile", "oil" }, keymaps = { accept_word = "<C-tab>" } }
@@ -157,32 +166,33 @@ map("x", "<leader>rB", r "extract_block_to_file", "extract block to file")
 map("n", "<C-t>", "<nop>", "toggle")
 map("n", "<C-t>h", function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()) end, "toggle hints")
 
-map("n", "<C-f>", FzfLua.files, "files")
-map("n", "<leader>f", FzfLua.oldfiles, "recent files")
-map("n", "<C-h>", FzfLua.helptags, "Help")
-map("n", "<C-g>", FzfLua.live_grep, "live_grep")
-map("n", "gd", FzfLua.lsp_definitions, "definitions")
-map("n", "gr", FzfLua.lsp_references, "references")
-map("n", "gi", FzfLua.lsp_implementations, "implementations")
+local function fl(cmd) return c("FzfLua " .. cmd) end
+map("n", "<C-f>", fl "files", "files")
+map("n", "<leader>f", fl "oldfiles", "recent files")
+map("n", "<C-h>", fl "helptags", "Help")
+map("n", "<C-g>", fl "live_grep", "live_grep")
+map("n", "gd", fl "lsp_definitions", "definitions")
+map("n", "gr", fl "lsp_references", "references")
+map("n", "gi", fl "lsp_implementations", "implementations")
 map("n", "gI", "`.", "last Insert")
-map("n", "gt", FzfLua.lsp_typedefs, "type definitions")
+map("n", "gt", fl "lsp_typedefs", "type definitions")
 map("n", "gk", vim.diagnostic.open_float, "diagnostics")
-map("n", "<leader>lf", FzfLua.lsp_finder, "lsp finder")
-map("n", "<leader>ld", FzfLua.diagnostics_document, "diagnostics")
-map("n", "<leader>lD", FzfLua.diagnostics_workspace, "diagnostics workspace")
-map("n", "<leader>la", FzfLua.lsp_code_actions, "code actions")
-map("n", "<leader>u", FzfLua.undotree, "undotree")
-map("n", "gs", FzfLua.lsp_document_symbols, "symbols")
-map("n", "gS", FzfLua.lsp_workspace_symbols, "workspace symbols")
+map("n", "<leader>lf", fl "lsp_finder", "lsp finder")
+map("n", "<leader>ld", fl "diagnostics_document", "diagnostics")
+map("n", "<leader>lD", fl "diagnostics_workspace", "diagnostics workspace")
+map("n", "<leader>la", fl "lsp_code_actions", "code actions")
+map("n", "<leader>u", fl "undotree", "undotree")
+map("n", "gs", fl "lsp_document_symbols", "symbols")
+map("n", "gS", fl "lsp_workspace_symbols", "workspace symbols")
 
 --formatters
-vim.g.guard_config = { lsp_as_default_formatter = true, format_on_save = true, save_on_fmt = false }
+vim.g.guard_config = { lsp_as_default_formatter = true, format_on_save = true, save_on_fmt = true }
 local ft = require "guard.filetype"
 local formatters = require "guard-collection.formatter"
 local biome = ext(formatters.biome, { find = { "biome.json", "biome.jsonc" } })
 local prettier = ext(formatters.prettier, { cmd = "prettierd", args = { "--stdin-filepath" } })
 local tsfiles = "javascript,typescript,javascriptreact,typescriptreact"
-ft(tsfiles):fmt(prettier):append(biome)
+ft(tsfiles):fmt(prettier) --:append(biome)
 ft("yaml,json,jsonc"):fmt(prettier)
 ft("python"):fmt "ruff"
 ft("lua"):fmt "stylua"
