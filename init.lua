@@ -1,5 +1,6 @@
 --options
 vim.g.mapleader = " "
+vim.g.novisual = false -- toggle visual elements linke number and list, so you can copy in client without them
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.cursorline = true
@@ -69,6 +70,23 @@ Map({ "n", "x" }, "<C-/>", "gcc", { desc = "Comment", remap = true })
 Map({ "n", "x" }, "<leader>l", "<nop>", "LSP")
 
 Map("n", "<leader>t", "<nop>", "toggle")
+Map("n", "<leader>tl", function()
+	if vim.g.novisual == true then
+		vim.g.novisual = false
+		vim.opt.number = true
+		vim.opt.relativenumber = true
+		vim.opt.list = true
+		vim.opt.signcolumn = "yes"
+		vim.diagnostic.config { virtual_text = true }
+	else
+		vim.g.novisual = true
+		vim.opt.number = false
+		vim.opt.relativenumber = false
+		vim.opt.list = false
+		vim.opt.signcolumn = "no"
+		vim.diagnostic.config { virtual_text = false }
+	end
+end, "toggle visual elements")
 Map("n", "<leader>tw", function() vim.opt.wrap = not vim.opt.wrap end, "toggle wrap");
 Map("n", "<leader>th", function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()) end, "toggle hints")
 
