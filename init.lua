@@ -40,7 +40,7 @@ function Map(mode, key, func, desc_or_opts)
 end
 
 local c = function(cmd) return "<cmd>" .. cmd .. "<cr>" end
-Map({"i"}, "<f1>", "<nop>")
+Map({ "i" }, "<f1>", "<nop>")
 Map({ "", "!" }, "<FIND>", "<HOME>", "home")
 Map({ "", "!" }, "<SELECT>", "<END>", "end")
 Map("", "<RightMouse>", "<nop>")
@@ -87,7 +87,7 @@ Map("n", "<leader>tl", function()
 		vim.diagnostic.config { virtual_text = false }
 	end
 end, "toggle visual elements")
-Map("n", "<leader>tw", function() vim.opt.wrap = not vim.opt.wrap end, "toggle wrap");
+Map("n", "<leader>tw", function() vim.opt.wrap = not vim.opt.wrap end, "toggle wrap")
 Map("n", "<leader>th", function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()) end, "toggle hints")
 
 --tmux
@@ -158,6 +158,13 @@ vim.cmd "colorscheme catppuccin-macchiato"
 for _, pack in ipairs { "mini.surround", "refactoring", "oil", "fzf-lua", "nvim-tree" } do
 	require(pack).setup()
 end
+require("nvim-treesitter").install { "html", "css", "typescript", "svelte" }
+vim.api.nvim_create_autocmd("FileType", {
+	callback = function(ev)
+		local ok = pcall(vim.treesitter.start, ev.buf)
+		if not ok then return end
+	end,
+})
 require "debugger"
 
 require("which-key").setup { preset = "helix" }
@@ -165,7 +172,21 @@ Map("n", "<leader>o", c "NvimTreeOpen", "nvim tree")
 
 --lsp
 -- https://github.com/neovim/nvim-lspconfig/tree/master/lsp
-vim.lsp.enable { "lua_ls", "ts_ls", "jsonls", "pyright", "tinymist", "bashls", "taplo", "gh_actions_ls", "hls" }
+vim.lsp.enable {
+	"lua_ls",
+	"ts_ls",
+	"html",
+	"css",
+	"svelte",
+	"tailwindcss",
+	"jsonls",
+	"pyright",
+	"tinymist",
+	"bashls",
+	"taplo",
+	"gh_actions_ls",
+	"hls",
+}
 vim.diagnostic.config { virtual_text = true }
 Map("n", "gR", vim.lsp.buf.rename, "rename")
 require("blink.cmp").setup { keymap = { ["<C-n>"] = false, ["<C-p>"] = false } }
