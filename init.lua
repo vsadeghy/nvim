@@ -27,9 +27,6 @@ vim.opt.listchars:append {
 	trail = ".",
 }
 
---terminal
-require "fterm"
-
 --mappings
 local function ext(tbl1, tbl2) return vim.tbl_extend("force", tbl1, tbl2) end
 ---@param desc_or_opts? string | vim.keymap.set.Opts
