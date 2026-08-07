@@ -115,6 +115,7 @@ vim.pack.add {
 	"https://github.com/nvim-mini/mini.surround",
 	"https://github.com/nvim-lua/plenary.nvim",
 	"https://github.com/ibhagwan/fzf-lua",
+	"https://github.com/stevearc/quicker.nvim",
 	"https://github.com/thePrimeagen/refactoring.nvim",
 	"https://github.com/nvimdev/guard.nvim",
 	"https://github.com/nvimdev/guard-collection",
@@ -123,7 +124,9 @@ vim.pack.add {
 	"https://github.com/nvim-tree/nvim-tree.lua",
 }
 vim.cmd "colorscheme catppuccin-macchiato"
-for _, pack in ipairs { "mini.surround", "refactoring", "oil", "fzf-lua", "nvim-tree" } do
+vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+
+for _, pack in ipairs { "mini.surround", "refactoring", "oil", "fzf-lua", "nvim-tree", "quicker" } do
 	require(pack).setup()
 end
 require("nvim-treesitter").install { "html", "css", "typescript", "svelte" }
