@@ -135,7 +135,7 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 	end,
 })
 
-if vim.version().minor < 12 then return end
+if vim.fn.has "nvim-0.12" == 0 then return end
 --plugins
 vim.pack.add {
 	"https://github.com/catppuccin/nvim",
