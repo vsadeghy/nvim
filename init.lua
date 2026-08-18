@@ -28,9 +28,6 @@ vim.opt.listchars:append {
 	trail = ".",
 }
 
---terminal
-require "fterm"
-
 --mappings
 local function ext(tbl1, tbl2) return vim.tbl_extend("force", tbl1, tbl2) end
 ---@param desc_or_opts? string | vim.keymap.set.Opts
@@ -104,36 +101,7 @@ Map({ "", "!", "t" }, "<M-Down>", move_pane("j", "-D"))
 Map({ "", "!", "t" }, "<M-Left>", move_pane("h", "-L"))
 Map({ "", "!", "t" }, "<M-Right>", move_pane("l", "-R"))
 
---autocmds
-vim.api.nvim_create_autocmd("FileType", {
-	pattern = "man",
-	callback = function()
-		Map("n", "d", "<C-d>", { nowait = true })
-		Map("n", "u", "<C-u>", { nowait = true })
-	end,
-})
-vim.api.nvim_create_autocmd("TermOpen", { command = "startinsert" })
-vim.api.nvim_create_autocmd("BufReadPost", { command = 'norm! `"zz' })
-vim.api.nvim_create_autocmd("TextYankPost", {
-	callback = function() vim.highlight.on_yank { timeout = 150 } end,
-})
-vim.api.nvim_create_autocmd("FileType", {
-	callback = function() vim.opt.formatoptions:remove { "c", "r", "o" } end,
-})
--- close [No Name] buffers
-vim.api.nvim_create_autocmd("BufReadPost", {
-	callback = function()
-		for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
-			if vim.api.nvim_buf_get_name(bufnr) == "" then
-				local chars = 0
-				for _, line in ipairs(vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)) do
-					chars = chars + #line
-				end
-				if chars == 0 then vim.api.nvim_buf_delete(bufnr, { force = true }) end
-			end
-		end
-	end,
-})
+require "autocmd"
 
 if vim.fn.has "nvim-0.12" == 0 then return end
 --plugins
@@ -149,6 +117,7 @@ vim.pack.add {
 	"https://github.com/nvim-mini/mini.surround",
 	"https://github.com/nvim-lua/plenary.nvim",
 	"https://github.com/ibhagwan/fzf-lua",
+	"https://github.com/stevearc/quicker.nvim",
 	"https://github.com/thePrimeagen/refactoring.nvim",
 	"https://github.com/nvimdev/guard.nvim",
 	"https://github.com/nvimdev/guard-collection",
@@ -156,6 +125,7 @@ vim.pack.add {
 	{ src = "https://github.com/saghen/blink.cmp", version = "v1.7.0" },
 	"https://github.com/nvim-tree/nvim-tree.lua",
 }
+
 vim.cmd.colorscheme "catppuccin-macchiato"
 for _, pack in ipairs {
 	"nvim-treesitter.config",
@@ -167,6 +137,17 @@ for _, pack in ipairs {
 } do
 	require(pack).setup()
 end
+
+vim.cmd "colorscheme catppuccin-macchiato"
+vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+
+require("nvim-treesitter").install { "html", "css", "typescript", "svelte" }
+vim.api.nvim_create_autocmd("FileType", {
+	callback = function(ev)
+		local ok = pcall(vim.treesitter.start, ev.buf)
+		if not ok then return end
+	end,
+})
 require "debugger"
 
 require("fzf-lua").register_ui_select()
@@ -176,7 +157,21 @@ Map("n", "<leader>o", c "NvimTreeOpen", "nvim tree")
 
 --lsp
 -- https://github.com/neovim/nvim-lspconfig/tree/master/lsp
-vim.lsp.enable { "lua_ls", "ts_ls", "jsonls", "pyright", "tinymist", "bashls", "taplo", "gh_actions_ls", "hls" }
+vim.lsp.enable {
+	"lua_ls",
+	"ts_ls",
+	"html",
+	"css",
+	"svelte",
+	"tailwindcss",
+	"jsonls",
+	"pyright",
+	"tinymist",
+	"bashls",
+	"taplo",
+	"gh_actions_ls",
+	"hls",
+}
 vim.diagnostic.config { virtual_text = true }
 Map("n", "gR", vim.lsp.buf.rename, "rename")
 require("blink.cmp").setup { keymap = { ["<C-n>"] = false, ["<C-p>"] = false } }

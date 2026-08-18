@@ -9,7 +9,6 @@ local function root_markers_with_field(root_files, new_names, field, fname)
 			end
 		end
 	end
-
 	return root_files
 end
 
