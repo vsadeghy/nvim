@@ -144,6 +144,7 @@ vim.pack.add {
 	{ src = "https://github.com/L3MON4D3/LuaSnip", version = "v2.4.1", build = "make install_jsregexp" },
 	"https://github.com/supermaven-inc/supermaven-nvim",
 	{ src = "https://github.com/nvim-treesitter/nvim-treesitter", version = "main" },
+	"https://github.com/dmmulroy/ts-error-translator.nvim",
 	"https://github.com/nvim-mini/mini.surround",
 	"https://github.com/nvim-lua/plenary.nvim",
 	"https://github.com/ibhagwan/fzf-lua",
@@ -154,8 +155,15 @@ vim.pack.add {
 	{ src = "https://github.com/saghen/blink.cmp", version = "v1.7.0" },
 	"https://github.com/nvim-tree/nvim-tree.lua",
 }
-vim.cmd "colorscheme catppuccin-macchiato"
-for _, pack in ipairs { "mini.surround", "refactoring", "oil", "fzf-lua", "nvim-tree" } do
+vim.cmd.colorscheme "catppuccin-macchiato"
+for _, pack in ipairs {
+	"nvim-treesitter.config",
+	"mini.surround",
+	"refactoring",
+	"oil",
+	"nvim-tree",
+	"ts-error-translator",
+} do
 	require(pack).setup()
 end
 require "debugger"
