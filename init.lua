@@ -41,7 +41,7 @@ function Map(mode, key, func, desc_or_opts)
 end
 
 local c = function(cmd) return "<cmd>" .. cmd .. "<cr>" end
-Map({"i"}, "<f1>", "<nop>")
+Map("i", "<f1>", "<nop>")
 Map({ "", "!" }, "<FIND>", "<HOME>", "home")
 Map({ "", "!" }, "<SELECT>", "<END>", "end")
 Map("", "<RightMouse>", "<nop>")
@@ -88,7 +88,7 @@ Map("n", "<leader>tl", function()
 		vim.diagnostic.config { virtual_text = false }
 	end
 end, "toggle visual elements")
-Map("n", "<leader>tw", function() vim.opt.wrap = not vim.opt.wrap end, "toggle wrap");
+Map("n", "<leader>tw", function() vim.opt.wrap = not vim.opt.wrap end, "toggle wrap")
 Map("n", "<leader>th", function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()) end, "toggle hints")
 
 --tmux
@@ -168,6 +168,8 @@ for _, pack in ipairs {
 	require(pack).setup()
 end
 require "debugger"
+
+require("fzf-lua").register_ui_select()
 
 require("which-key").setup { preset = "helix" }
 Map("n", "<leader>o", c "NvimTreeOpen", "nvim tree")
