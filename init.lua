@@ -133,6 +133,7 @@ for _, pack in ipairs {
 	"refactoring",
 	"oil",
 	"nvim-tree",
+	"quicker",
 	"ts-error-translator",
 } do
 	require(pack).setup()
