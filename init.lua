@@ -160,6 +160,7 @@ Map("n", "<leader>o", c "NvimTreeOpen", "nvim tree")
 vim.lsp.enable {
 	"lua_ls",
 	"ts_ls",
+	-- "tsc",
 	"html",
 	"css",
 	"svelte",
