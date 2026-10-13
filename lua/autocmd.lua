@@ -1,8 +1,9 @@
 vim.api.nvim_create_autocmd("FileType", {
 	pattern = "man",
 	callback = function()
-		Map("n", "d", "<C-d>", { nowait = true })
-		Map("n", "u", "<C-u>", { nowait = true })
+		vim.keymap.set("n", "d", "<C-d>", { nowait = true })
+		vim.keymap.set("n", "u", "<C-u>", { nowait = true })
+		vim.keymap.set("n", "g", "gg", { nowait = true, buffer = true })
 	end,
 })
 vim.api.nvim_create_autocmd("TermOpen", { command = "startinsert" })
