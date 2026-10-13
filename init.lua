@@ -21,6 +21,7 @@ vim.opt.signcolumn = "yes"
 vim.opt.winborder = "rounded"
 vim.opt.colorcolumn = "80"
 vim.opt.list = true
+vim.opt.arabicshape = false
 vim.opt.listchars:append {
 	multispace = "·",
 	lead = "·",
@@ -37,7 +38,7 @@ function Map(mode, key, func, desc_or_opts)
 end
 
 local c = function(cmd) return "<cmd>" .. cmd .. "<cr>" end
-Map({ "i" }, "<f1>", "<nop>")
+Map("i", "<f1>", "<nop>")
 Map({ "", "!" }, "<FIND>", "<HOME>", "home")
 Map({ "", "!" }, "<SELECT>", "<END>", "end")
 Map("", "<RightMouse>", "<nop>")
@@ -102,7 +103,7 @@ Map({ "", "!", "t" }, "<M-Right>", move_pane("l", "-R"))
 
 require "autocmd"
 
-if vim.version().minor < 12 then return end
+if vim.fn.has "nvim-0.12" == 0 then return end
 --plugins
 vim.pack.add {
 	"https://github.com/catppuccin/nvim",
@@ -112,6 +113,7 @@ vim.pack.add {
 	{ src = "https://github.com/L3MON4D3/LuaSnip", version = "v2.4.1", build = "make install_jsregexp" },
 	"https://github.com/supermaven-inc/supermaven-nvim",
 	{ src = "https://github.com/nvim-treesitter/nvim-treesitter", version = "main" },
+	"https://github.com/dmmulroy/ts-error-translator.nvim",
 	"https://github.com/nvim-mini/mini.surround",
 	"https://github.com/nvim-lua/plenary.nvim",
 	"https://github.com/ibhagwan/fzf-lua",
@@ -123,12 +125,23 @@ vim.pack.add {
 	{ src = "https://github.com/saghen/blink.cmp", version = "v1.7.0" },
 	"https://github.com/nvim-tree/nvim-tree.lua",
 }
+
+vim.cmd.colorscheme "catppuccin-macchiato"
+for _, pack in ipairs {
+	"nvim-treesitter.config",
+	"mini.surround",
+	"refactoring",
+	"oil",
+	"nvim-tree",
+	"quicker",
+	"ts-error-translator",
+} do
+	require(pack).setup()
+end
+
 vim.cmd "colorscheme catppuccin-macchiato"
 vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
 
-for _, pack in ipairs { "mini.surround", "refactoring", "oil", "fzf-lua", "nvim-tree", "quicker" } do
-	require(pack).setup()
-end
 require("nvim-treesitter").install { "html", "css", "typescript", "svelte" }
 vim.api.nvim_create_autocmd("FileType", {
 	callback = function(ev)
@@ -138,6 +151,8 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 require "debugger"
 
+require("fzf-lua").register_ui_select()
+
 require("which-key").setup { preset = "helix" }
 Map("n", "<leader>o", c "NvimTreeOpen", "nvim tree")
 
@@ -146,6 +161,7 @@ Map("n", "<leader>o", c "NvimTreeOpen", "nvim tree")
 vim.lsp.enable {
 	"lua_ls",
 	"ts_ls",
+	-- "tsc",
 	"html",
 	"css",
 	"svelte",
