@@ -9,7 +9,7 @@ vim.api.nvim_create_autocmd("FileType", {
 vim.api.nvim_create_autocmd("TermOpen", { command = "startinsert" })
 vim.api.nvim_create_autocmd("BufReadPost", { command = 'norm! `"zz' })
 vim.api.nvim_create_autocmd("TextYankPost", {
-	callback = function() vim.highlight.on_yank { timeout = 150 } end,
+	callback = function() vim.hl.hl_op { timeout = 150 } end,
 })
 vim.api.nvim_create_autocmd("FileType", {
 	callback = function() vim.opt.formatoptions:remove { "c", "r", "o" } end,

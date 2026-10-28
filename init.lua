@@ -1,3 +1,4 @@
+vim.loader.enable()
 --options
 vim.g.mapleader = " "
 vim.g.novisual = false -- toggle visual elements linke number and list, so you can copy in client without them
@@ -105,28 +106,45 @@ require "autocmd"
 
 if vim.fn.has "nvim-0.12" == 0 then return end
 --plugins
+---@param repo string
+local function gh(repo) return "https://github.com/" .. repo end
 vim.pack.add {
-	"https://github.com/catppuccin/nvim",
-	"https://github.com/stevearc/oil.nvim",
-	"https://github.com/folke/which-key.nvim",
-	"https://github.com/mbbill/undotree",
-	{ src = "https://github.com/L3MON4D3/LuaSnip", version = "v2.4.1", build = "make install_jsregexp" },
-	"https://github.com/supermaven-inc/supermaven-nvim",
-	{ src = "https://github.com/nvim-treesitter/nvim-treesitter", version = "main" },
-	"https://github.com/dmmulroy/ts-error-translator.nvim",
-	"https://github.com/nvim-mini/mini.surround",
-	"https://github.com/nvim-lua/plenary.nvim",
-	"https://github.com/ibhagwan/fzf-lua",
-	"https://github.com/stevearc/quicker.nvim",
-	"https://github.com/thePrimeagen/refactoring.nvim",
-	"https://github.com/nvimdev/guard.nvim",
-	"https://github.com/nvimdev/guard-collection",
-	"https://github.com/chomosuke/typst-preview.nvim",
-	{ src = "https://github.com/saghen/blink.cmp", version = "v1.7.0" },
-	"https://github.com/nvim-tree/nvim-tree.lua",
+	{ src = gh "catppuccin/nvim", name = "catppuccin" },
+	gh "stevearc/oil.nvim",
+	gh "folke/which-key.nvim",
+	gh "mbbill/undotree",
+	{ src = gh "L3MON4D3/LuaSnip", version = "v2.5.0", build = "make install_jsregexp" },
+	gh "supermaven-inc/supermaven-nvim",
+	gh "nvim-treesitter/nvim-treesitter",
+	gh "kdheepak/lazygit.nvim",
+	gh "dmmulroy/ts-error-translator.nvim",
+	gh "nvim-mini/mini.surround",
+	gh "nvim-lua/plenary.nvim",
+	gh "ibhagwan/fzf-lua",
+	gh "stevearc/quicker.nvim",
+	gh "thePrimeagen/refactoring.nvim",
+	gh "nvimdev/guard.nvim",
+	gh "nvimdev/guard-collection",
+	gh "chomosuke/typst-preview.nvim",
+	{ src = gh "saghen/blink.cmp", version = vim.version.range "1.*" },
+	gh "nvim-tree/nvim-tree.lua",
 }
 
-vim.cmd.colorscheme "catppuccin-macchiato"
+vim.cmd "colorscheme catppuccin-macchiato"
+for _, group in ipairs {
+	"Normal",
+	"NormalNC",
+	"NormalFloat",
+	"FloatBorder",
+	"SignColumn",
+	"LineNr",
+	"CursorLineNr",
+	"Folded",
+	"FoldColumn",
+} do
+	vim.api.nvim_set_hl(0, group, { bg = "none", ctermbg = "none" })
+end
+
 for _, pack in ipairs {
 	"nvim-treesitter.config",
 	"mini.surround",
