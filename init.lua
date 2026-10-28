@@ -157,9 +157,6 @@ for _, pack in ipairs {
 	require(pack).setup()
 end
 
-vim.cmd "colorscheme catppuccin-macchiato"
-vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
-
 require("nvim-treesitter").install { "html", "css", "typescript", "svelte" }
 vim.api.nvim_create_autocmd("FileType", {
 	callback = function(ev)
