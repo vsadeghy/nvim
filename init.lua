@@ -175,8 +175,8 @@ Map("n", "<leader>o", c "NvimTreeOpen", "nvim tree")
 -- https://github.com/neovim/nvim-lspconfig/tree/master/lsp
 vim.lsp.enable {
 	"lua_ls",
-	"ts_ls",
-	-- "tsc",
+	-- "ts_ls",
+	"tsc",
 	"html",
 	"css",
 	"svelte",
